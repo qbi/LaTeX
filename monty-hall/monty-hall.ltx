@@ -1,0 +1,1598 @@
+\documentclass[english]{scrbook}
+
+%% Input encoding
+%% for Windows: use 'latin1' as argument
+\usepackage[utf8]{inputenc}
+
+%% Font encoding
+%% please see fontenc.pdf for a detailed description
+\usepackage[T1]{fontenc}
+
+%% typeset the table of contents and other in the correct language
+%% have hyphenation pattern etc.
+\usepackage[english]{babel}
+
+%% setting quotes, language settings are derived from the options or
+%% babel settings
+%% can also be set as an option:
+%%% --> \usepackage[autostyle,german=guillemets,norwegian=quotes]{csquotes}
+\usepackage{csquotes}
+
+%% provides command \sfrac{}{} for split-level fractions
+%% you can also use \usepackage{nicefrac} and \nicefrac{}{} as command
+\usepackage{xfrac}
+
+%% typesetting SI units
+%% document uses it for typesetting numbers: \num{123456}
+%% often used for typesetting units: \si{\kilo\gram\metre\per\square\second}
+\usepackage{siunitx}
+\sisetup{group-separator={,}}
+
+%% documentwide head- and footlines
+%% see scrguien.pdf p.196 ff for a detailed explanation
+\usepackage[automark,headsepline,markuppercase]{scrpage2}
+\pagestyle{scrheadings}
+% \automark[subsection]{section}
+
+% \setheadtopline{2pt}
+% \setheadsepline{.4pt}
+
+% \lehead{\bfseries\pagemark}    %% Top left on even pages
+% \lohead{\bfseries\headmark}    %% Top left on odd pages
+% \rehead{\bfseries\headmark}    %% Top right on even pages
+% \rohead{\bfseries\pagemark}    %% Top right on odd pages
+% \chead{}                       %% Top center
+%\ohead{\pagemark{}}
+%\chead{}
+%\ihead{\headmark}
+
+%% drawing nice lines in tables
+\usepackage{booktabs}
+
+%% working with images
+\usepackage{graphicx}
+
+%% Working with hypertext links, referencing inside documents etc.
+%% linkcolor=black sets the color of links, by default it is red
+\usepackage[breaklinks, colorlinks, linkcolor=black, final]{hyperref}
+
+%% float text around figures and tables
+\usepackage{wrapfig}
+
+%% Use Linux Libertine as font
+\usepackage{libertine}
+\usepackage[libertine]{newtxmath}
+
+%% Allow a picture at the title page
+\usepackage{titlepic}
+
+%% typeset lists inside the text
+%% like a) first, b) second and so on
+%% also provides a compact version of itemize and enumerate
+\usepackage{paralist}
+
+%% longtable and tabu are used to typeset tables which span across
+%% multiple pages
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{tabu}
+
+%% LaTeX puts an uneven amount of seven around ellipses (sometimes
+%% typed as ..., more correct like … or as LaTeX command \dots). The
+%% package fixes the spacing
+\usepackage{ellipsis}
+
+%% On some occasions LaTeX makes mistakes. Those bugs cannot be
+%% corrected inside LaTeX, but the package provides a fix.
+%% see fixltx2e.pdf for more information
+\usepackage{fixltx2e}
+
+%% tries to improve the typographic quality of a document
+%% there is an extensive set of options to this package
+\usepackage[final,babel]{microtype} % Verbesserung der Typographie
+
+%% set landscape pages inside the document
+\usepackage{lscape}
+
+%% line numbers inside the LaTeX document
+% \usepackage{lineno}
+% \linenumbers
+
+%% Support for colors
+\usepackage[table]{xcolor}
+
+%% end of preamble
+
+%% start of document contents
+
+\begin{document}
+%% Set the contents of the title page
+\titlehead{University of Foo Bar\\
+New Street 123\\
+82641~Discworld}
+\subject{Texts on probability}
+\author{Jens Kubieziel}
+\title{The Monty Hall Problem}
+\subtitle{A complete Wikipedia page}
+\date{\today}
+\publishers{\LaTeX{} course}
+%\titlepic{\includegraphics[width=.4\textwidth]{Monty-open-door}}
+
+
+% \setcounter{page}{1}
+% \pagenumbering{roman}
+\maketitle
+% \begin{abstract}
+%   This small article covers the so called Monty Hall problem. It was
+%   produced from an article from the english Wikipedia.
+% \end{abstract}
+
+
+\tableofcontents{}
+\newpage{}
+\listoffigures{}
+\listoftables{}
+\newpage{}
+% \setcounter{page}{1}
+% \pagenumbering{arabic}
+
+\chapter{Introduction}
+\label{sec:introduction}
+
+
+The \emph{Monty Hall problem} is a probability puzzle, loosely based
+on the American television game show Let's Make a Deal and named after
+the show's original host, \textsc{Monty Hall}. The problem was
+originally posed in a letter by \textsc{Steve Selvin} to the American
+Statistician in 1975 (Selvin 1975a), (Selvin 1975b). It became famous
+in the following form, as a question from a reader's letter quoted in
+\textsc{Marilyn vos Savant}'s \enquote{Ask Marilyn} column in Parade
+magazine in 1990 (vos Savant 1990a):
+
+\begin{quote}
+  Suppose you're on a game show, and you're given the choice of three
+  doors: Behind one door is a car; behind the others, goats. You pick
+  a door, say No.\,1, and the host, who knows what's behind the doors,
+  opens another door, say No.\,3, which has a goat. He then says to
+  you, \enquote{Do you want to pick door No.\,2?} Is it to your
+  advantage to switch your choice?
+\end{quote}
+
+
+\textsc{Vos Savant}'s response was that the contestant should switch to the
+other door. (vos Savant 1990a)
+
+The argument depends on the assumptions, made explicit in more
+extended solution descriptions given by \textsc{Selvin} (1975a) and by
+\textsc{vos Savant} (1991a), that the host always opens a different
+door from the door chosen by the player and always reveals a goat by
+this action -- something he can always do because he knows where the
+car is hidden. \textsc{Leonard Mlodinow} says: \enquote{The Monty Hall
+  problem is hard to grasp, because unless you think about it
+  carefully, the role of the host goes unappreciated.} (Mlodinow 2008)
+
+Contestants who switch have a \sfrac{2}{3} chance of winning the car,
+while contestants who stick have only a \sfrac{1}{3} chance. One way
+to see this is to notice that there is a \sfrac{2}{3} chance that the
+initial choice of the player is a door hiding a goat. When that is the
+case, the host is forced to open the other goat door, and the
+remaining closed door hides the car. \enquote{Switching} only fails to
+give the car when the player had initially picked the door hiding the
+car, which only happens one third of the time.
+
+Many readers of \textsc{vos Savant}'s column refused to believe that
+switching is beneficial, despite her explanation of her answer. After
+the problem appeared in Parade, approximately \num{10000}~readers,
+including nearly \num{1000} with PhDs, wrote to the magazine claiming
+that \textsc{vos Savant} was wrong (Tierney 1991). Even when given
+explanations, simulations, and formal mathematical proofs, many people
+still do not accept that switching is the best strategy. (vos Savant
+1991a) \textsc{Paul Erdős}, one of the most prolific mathematicians in
+history, remained unconvinced until he was shown a computer simulation
+confirming the predicted result (Vazsonyi 1999).
+
+The Monty Hall problem has attracted academic interest because the
+result is surprising and the problem is simple to
+formulate. Furthermore, variations of the Monty Hall problem can
+easily be made by changing the implied assumptions, and the variations
+can have drastically different consequences. For example, if Monty
+only offers the contestant a chance to switch when the contestant has
+initially chosen the car, then the contestant should never switch. If
+Monty opens another door at random and only happens to reveal a goat,
+then it makes no difference.
+
+The problem is a paradox of the veridical type, because the correct
+result (you should switch doors) is at first sight ludicrous, but is
+nevertheless demonstrably true. It is mathematically closely related
+to the earlier Three Prisoners problem, and both problems bear some
+similarity to the much older Bertrand's box paradox.
+
+\chapter{The paradox}
+\label{sec:paradox}
+
+
+
+The most well known statement of the problem is:
+
+\begin{quote}
+  Suppose you're on a game show, and you're given the choice of three
+  doors: Behind one door is a car; behind the others, goats. You pick
+  a door, say No.\,1, and the host, who knows what's behind the doors,
+  opens another door, say No.\, 3, which has a goat. He then says to
+  you, \enquote{Do you want to pick door No.\,2?} Is it to your
+  advantage to switch your choice?
+\end{quote}
+\hfill{(Whitaker, 1990, as quoted by vos Savant 1990a)}
+
+\textsc{Vos Savant}'s response was:
+
+\begin{quote}
+  Yes; you should switch. The first door has a \sfrac{1}{3} chance of
+  winning, but the second door has a \sfrac{2}{3} chance. Here’s a
+  good way to visualize what happened. Suppose there are a million
+  doors, and you pick door \#1. Then the host, who knows what’s behind
+  the doors and will always avoid the one with the prize, opens them
+  all except door \#777,777. You’d switch to that door pretty fast,
+  wouldn’t you?
+\end{quote}
+
+
+You should swap, and doing so gives you a \sfrac{2}{3} chance of
+winning the car. A simple explanation is that players initially have a
+\sfrac{2}{3} chance of picking a goat and those who swap always get
+the opposite of their original choice. So players who always swap have
+a \sfrac{2}{3} chance of getting the car (Carlton 2005).
+
+\textsc{Leonard Mlodinow} says, \enquote{The Monty Hall problem is
+  hard to grasp, because unless you think about it carefully, the role
+  of the host goes unappreciated.} (Mlodinow 2008) The correct answer,
+that players who swap have a \sfrac{2}{3} chance of winning the car
+and players who stick have a \sfrac{1}{3} chance of winning the car,
+is based on the premise that the host knows which door hides the car
+and will always reveal a goat but never the car. If the player
+initially selected the door that hides the car (a 1-in-3 chance only),
+then both remaining doors hide goats, the host may choose either door,
+and switching doors loses. On the other hand, if the player initially
+selected a door that hides a goat (a 2-in-3 chance), then the host has
+no choice but to show the other goat, and switching door wins for
+sure.
+
+If the host however, contradictory to the premise of the standard
+paradox, had opened a door at random and revealed a goat simply by
+chance, then the odds staying:switching would have been reduced from
+1:2 as per the paradox to 1:1 only, as per the common intuitive wrong
+answer, because half of the potential winning cases are wasted when
+the host can accidentally reveal also the car (Rosenthal, 2005a),
+(Rosenthal, 2005b).  
+
+\chapter{Origin and full assumptions}
+\label{sec:orig-full-assumpt}
+
+
+\textsc{Steve Selvin} wrote a letter to the American Statistician in
+1975 describing a problem loosely based on the game show Let's Make a
+Deal. (Selvin 1975a) In a subsequent letter he dubbed it the
+\enquote{Monty Hall problem}. (Selvin 1975b) The problem is
+mathematically equivalent to the Three Prisoners Problem described in
+\textsc{Martin Gardner}'s \enquote{Mathematical Games} column in
+Scientific American in 1959 (Gardner 1959a) and the Three Shells
+Problem described in Gardner's book \enquote{Aha Gotcha} (Gardner
+1982). (Morgan et al., 1991) In 1990 the same problem was famously
+restated in the form shown above in a letter by \textsc{Craig
+  Whitaker} to \textsc{Marilyn vos Savant}'s \enquote{Ask Marilyn}
+column in Parade.
+
+There are ambiguities in \textsc{Craig Whitaker}'s quoted description
+of how the game is played: the description does not make explicit that
+the host must always open one of the two other doors, that opening the
+other door always reveals a goat, and that the host always offers the
+player the opportunity to switch doors. However \textsc{Marilyn vos
+  Savant}'s (1990a) solution, printed alongside \textsc{Whitaker}'s
+question, does make quite clear that this is her intended
+interpretation of the problem. (Mueser and Granberg 1999) The standard
+understanding of the Monty Hall problem, written out explicitly both
+by \textsc{Selvin} (1975a) and \textsc{vos Savant} (1991a), is that
+the host must always open an unchosen door that reveals a goat and
+make the offer to switch.
+
+Very often it is also assumed that the car is initially hidden
+completely at random, and that if the host has a choice of door to
+open (which happens if the player initially picked the car) then this
+choice is completely random, too. (Krauss and Wang, 2003:9) Some
+authors, either instead of or together with these probability
+assumptions, assume that the player's initial choice is completely
+random, for instance. Selvin (1975a)
+
+\chapter{Vos Savant and the media furor}
+\label{sec:vos-savant-media}
+
+\textsc{Vos Savant} wrote in her first column on the Monty Hall
+problem that the player should switch, saying that the first door has
+a \sfrac{1}{3} chance of winning, hence the second door offered to
+switch to has a \sfrac{2}{3} chance as the host always opens a losing
+door on purpose. (vos Savant 1990a) She went on to explain her answer
+by asking the reader to visualize the case where there are a million
+doors and the player picks \#1. Then the host, who knows what’s behind
+the doors and will always avoid the one with the prize, opens all
+remaining doors except door \#777,777. Her conclusion: \enquote{You’d
+  switch to that door pretty fast, wouldn’t you?}
+
+In response to her answer, \textsc{vos Savant} received thousands of
+letters from her readers, many with PhDs, telling her that she was
+wrong. Of the letters from the general public, 92\,\% were against her
+answer, and of the letters from universities, 65\,\% were against her
+answer. During 1990--1991 three more of her columns in Parade magazine
+were devoted to her debate with her readers (vos Savant 1990–1991),
+and the debate was also replayed in other venues (e.g., in
+\textsc{Cecil Adams} popular \enquote{The Straight Dope} newspaper
+column, Adams, 1990) and reported on in major newspapers such as the
+New York Times (Tierney, 1991).
+
+\textsc{Vos Savant} replied with further explanation, \enquote{The
+  winning odds of \sfrac{1}{3} on the first choice can’t go up to
+  \sfrac{1}{2} just because the host opens a losing door,} and she
+proposed a shell game (Gardner 1982) to illustrate her thinking:
+\enquote{You look away, and I put a pea under one of three
+  shells. Then I ask you to put your finger on a shell. The odds that
+  your choice contains a pea are \sfrac{1}{3}, agreed? Then I simply
+  lift up an empty shell from the remaining other two. As I can (and
+  will) do this regardless of what you’ve chosen, we’ve learned
+  nothing to allow us to revise the odds on the shell under your
+  finger.} She also proposed a similar simulation of the game with
+three playing cards.
+
+Even after her further explanations, readers continued to write in
+telling her that she was wrong. Nevertheless, people did begin to
+change their minds about the solution. Of those that actually carried
+out \textsc{vos Savant}'s shell simulation, nearly 100\,\% wrote to
+say that they agreed with her. Of the general public, about 56\,\%
+came to believe that switching was best; and of academic institutions,
+71\,\%.
+
+\textsc{Vos Savant} commented that though some confusion was caused by
+some readers not realizing that they were supposed to assume that the
+host must always reveal a goat, still, almost all of her numerous
+correspondents had correctly understood the problem assumptions, and
+despite this were initially convinced that Marylin's answer
+(\enquote{switch}) was wrong.
+
+\section{The little green woman}
+\label{sec:little-green-woman}
+
+
+To help explain why people thought that the probability of winning
+both sticking and switching was equal, \textsc{vos Savant} asked
+readers to consider the case where a little green woman emerges on
+stage from a UFO at the point that the player has to decide whether or
+not to switch, and the host asks the little green woman to point to
+one of the two unopened doorsdoors. In that case, \textsc{vos Savant}
+points out, the chances that she’ll randomly choose the door with the
+prize are \sfrac{1}{2}, but that is because she lacks the information
+that the player has, knowing which door he/she had initially chosen
+and which one had been offered by the host to switch on.
+
+\section{A second controversy}
+\label{sec:second-controversy}
+
+
+Four university professors published an article (Morgan et al, 1991)
+in The American Statistician in which it was claimed that though
+\textsc{vos Savant} gave the correct advice (to switch), her argument
+for this advice was completely wrong. In their opinion the question
+asks for the chance that the car is behind door~2 given that the
+player chose door~1 and the host opened door~3. \textsc{Morgan} et
+al. showed that this chance could be anything between \sfrac{1}{2} and
+1, depending on how the host chooses a door to open when he has a
+choice. Only when he chooses completely at random is the chance
+\sfrac{2}{3}.
+
+In an invited comment (Seymann, 1991) and in subsequent letters to the
+editor, (vos Savant, 1991c; Rao, 1992; Bell, 1992; Hogbin and Nijdam,
+2011) \textsc{Morgan} et al. were supported by some writers,
+criticized by others; in each case a response by \textsc{Morgan} et
+al. is published alongside the letter or comment in The American
+Statistician. In particular, \textsc{vos Savant} defended herself
+vigorously. \textsc{Morgan} et al. complained in their response to
+\textsc{vos Savant} (1991c) that \textsc{vos Savant} still had not
+actually responded to their own main point. Later in their response to
+\textsc{Hogbin} and \textsc{Nijdam} (2011) they did agree that it was
+natural to suppose that the host chooses a door to open completely at
+random, when he does have a choice, and hence that the conditional
+probability of winning by switching (i.\,e., conditional given the
+situation the player is in when he has to make his choice) has the
+same value, \sfrac{2}{3}, as the unconditional probability of winning
+by switching (i.\,e., averaged over all possible situations). This
+equality was already emphasized by Bell (1992) who suggested that
+\textsc{Morgan} et al.'s mathematically involved solution would only
+appeal to statisticians, whereas the equivalence of the conditional
+and unconditional solutions in the case of symmetry was intuitively
+obvious.
+
+\chapter{Solutions}
+\label{sec:solutions}
+
+
+\section{Vos Savant}
+\label{sec:vos-savant}
+
+The solution presented by \textsc{vos Savant} (1990b) in Parade shows
+the three possible arrangements of one car and two goats behind three
+doors and the result of staying or switching after initially picking
+door~1 in each case:
+
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \toprule
+    \textbf{behind} &  \textbf{behind } &  \textbf{behind} & \textbf{result if staying} & \textbf{result if switching}\\
+    \textbf{ door 1} &\textbf{door 2} &\textbf{ door 3} & \textbf{ at door \#1} & \textbf{ to the door offered
+    }\\
+    \midrule
+    \textbf{Car} & Goat & Goat & \textbf{Car} &  Goat\\
+    \midrule
+    Goat & \textbf{Car} & Goat & Goat & \textbf{Car}\\
+    \midrule
+    Goat & Goat & \textbf{Car} & Goat & \textbf{Car}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Possible arragements of one car and two goats}
+  \label{tab:arrange-car-goat}
+\end{table}
+
+
+A player who stays with the initial choice wins in only one out of
+three of these equally likely possibilities, while a player who
+switches wins in two out of three. The probability of winning by
+staying with the initial choice is therefore \sfrac{1}{3}, while the
+probability of winning by switching is \sfrac{2}{3}.
+
+\section{Carlton}
+\label{sec:carlton}
+
+\begin{wrapfigure}{R}{.54\textwidth}
+  \begin{center}
+    \includegraphics[width=.25\textwidth]{Monty-closed-doors}
+  \end{center}
+  \caption{Player's pick has a \sfrac{1}{3}~chance on the car and
+    \sfrac{2}{3}~chance on a goat. As each one has \sfrac{1}{3}~chance
+    on the car, the combined chance of door~2 and door~3 hiding the
+    car is \sfrac{2}{3}.}
+  \begin{center}
+    \includegraphics[width=.25\textwidth]{Monty-open-door-chances}
+  \end{center}
+  \caption{With the usual assumptions, after the host deliberately
+    opened a door to intentionally show a goat, but without any
+    further information, the player's pick still retains its
+    \sfrac{1}{3}~chance, likewise the other two doors still retain
+    their combined \sfrac{2}{3}~chance:
+    Null for the door opened, but \sfrac{2}{3} for the host's second
+    still unopened door.}
+\end{wrapfigure}
+An intuitive explanation is to reason that players whose strategy is
+to switch lose if and only if they initially pick the car; that
+happens with probability \sfrac{1}{3}, so switching must win with
+probability \sfrac{2}{3} (Carlton 2005, concluding remarks).
+
+Simply put, if the contestant picks a goat (to which two of the three
+doors lead) the contestant will win the car by switching as the other
+goat can no longer be picked, while if the contestant picks the car
+(to which one door leads) the contestant will not win the car by
+switching. So, if contestants switch, they will win the car if they
+originally picked a goat and they will not win if they originally
+picked the car. As they have a 2 in 3 chance of originally picking a
+goat, they have a 2 in 3 chance of winning by switching.
+
+\section{Adams and Devlin}
+\label{sec:adams-devlin}
+
+Another way to understand the solution is to consider the two original
+unchosen doors together. Instead of one door being opened and shown to
+be a losing door, an equivalent action is to combine the two unchosen
+doors into one since the player cannot choose the opened door (Adams
+1990; Devlin 2003; Williams 2004; Stibel et al., 2008).
+
+As \textsc{Cecil Adams} puts it (Adams 1990), \enquote{Monty is saying
+  in effect: you can keep your one door or you can have the other two
+  doors}. The player therefore has the choice of either sticking with
+the original choice of door, or choosing the sum of the contents of
+the two other doors. The \sfrac{2}{3} chance of hiding the car has not
+been changed by the opening of one of these doors because Monty,
+knowing the location of the car, is equally likely to reveal a goat
+whether the player originally picked the car or the goat (in fact: in
+both cases, he is certain to do so). If the host did not know where
+the car is hidden, but opened a door revealing a goat by chance, the
+revelation would indeed change the probability of the player's
+original choice being correct to \sfrac{1}{2}. The critical difference
+is that an ignorant host is more likely to successfully reveal a goat
+when the player's original choice is the car than he is when the
+original choice is a goat, so the revealing of a goat by chance does
+provide evidence in favor of the player's original choice winning the
+car.
+
+In other words, offering the player to switch doors after revealing a
+goat is no different than if the host offered the player to switch
+from their original chosen door to both remaining doors, and only
+after the player chooses, the host shows that one of the two doors
+contains a goat (which at least one always will). The switch in this
+case clearly gives the player a \sfrac{2}{3}~probability of chosing
+the car, and the revealation that a goat is behind one of the player's
+two doors, which is always the case, does not change this probability.
+
+As \textsc{Keith Devlin} says (Devlin 2003), \enquote{By opening his
+  door, Monty is saying to the contestant \enquote{There are two doors
+    you did not choose, and the probability that the prize is behind
+    one of them is \sfrac{2}{3}. I'll help you by using my knowledge
+    of where the prize is to open one of those two doors to show you
+    that it does not hide the prize. You can now take advantage of
+    this additional information. Your choice of door A has a chance of
+    1 in 3 of being the winner. I have not changed that. But by
+    eliminating door C, I have shown you that the probability that
+    door B hides the prize is 2 in 3.}}
+
+\section{  Vos Savant -- Increasing the number of doors}
+\label{sec:vos-savant-incr}
+
+That switching has a probability of \sfrac{2}{3} of winning the car
+runs counter to many people's intuition. If there are two doors left,
+then why is each door not \sfrac{1}{2}? It may be easier to appreciate
+the solution by considering the same problem with \num{1000000}~doors
+instead of just three. (vos Savant 1990a) In this case there are
+\num{999999}~doors with goats behind them and one door with a
+prize. The player picks a door. His initial probability of winning is
+1 out of \num{1000000}. The game host goes down the line of doors,
+opening each one to show \num{999998}~goats in total, skipping over
+only the player's door and one other door. The host then offers the
+player the chance to switch to the only other unopened door. On
+average, in \num{999999} out of \num{1000000}~times the other door
+will contain the prize, as \num{999999} out of \num{1000000}~times the
+player first picked a door with a goat -- the chance that the player's
+door is correct has not changed.  A rational player should switch.
+
+Intuitively speaking, the player should ask how likely is it, that
+given a million doors, he or she managed to pick the right one. It's
+as if Monty gives you the chance to keep your one door, or open all
+\num{999999} of the other doors, of which he kindly opens \num{999998}
+for you, leaving, deliberately, the one with the prize. Clearly, one
+would choose to open the other \num{999999} doors rather than keep the
+one.
+
+\textsc{Stibel} et al. (2008) proposed working memory demand is taxed
+during the Monty Hall problem and that this forces people to
+\enquote{collapse} their choices into two equally probable
+options. They report that when increasing the number of options to
+over 7~choices (7~doors) people tend to switch more often; however
+most still incorrectly judge the probability of success at
+\sfrac{50}{50}.
+
+\section{'The Economist'}
+\label{sec:the-economist}
+
+
+In this analysis the words, \enquote{say No.\,1}, and \enquote{say
+  No.\,3} in the question are not taken to mean that we are only to
+consider the case where the player has chosen door~1 and the host has
+revealed a goat behind door~3. The problem is solved by considering
+the equally likely events that the player has initially chosen the
+car, goat~A, or goat~B (Economist 1999). In the first case, switching
+doors loses, but in the other two cases, switching doors wins, see
+\autoref{fig:curlypicksgoat}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=.7\textwidth]{Monty-CurlyPicksCar}
+  \caption{The player has an equal chance of initially selecting the car, Goat A, or Goat B. Switching results in a win \sfrac{2}{3} of the time.}
+  \label{fig:curlypicksgoat}
+\end{figure}
+
+\section{Simulations}
+\label{sec:simulations}
+
+A simple way to demonstrate that a switching strategy really does win
+two out of three times on the average is to simulate the game with
+playing cards (Gardner 1959b; vos Savant 1996, p. 8). Three cards from
+an ordinary deck are used to represent the three doors; one
+\enquote{special} card such as the Ace of Spades should represent the
+door with the car, and ordinary cards, such as the two red twos,
+represent the goat doors.
+
+\begin{wrapfigure}{R}{.4\textwidth}
+  \begin{center}
+    \includegraphics[width=.3\textwidth]{Monty-problem-monte-carlo}
+  \end{center}
+\caption{Simulation of 30 outcomes of the Monty Hall problem}
+\end{wrapfigure}
+The simulation, using the following procedure, can be repeated several
+times to simulate multiple rounds of the game. One card is dealt
+face-down at random to the \enquote{player}, to represent the door the
+player picks initially. Then, looking at the remaining two cards, at
+least one of which must be a red two, the \enquote{host} discards a
+red two. If the card remaining in the host's hand is the Ace of
+Spades, this is recorded as a round where the player would have won by
+switching; if the host is holding a red two, the round is recorded as
+one where staying would have won.
+
+As this experiment is repeated over several rounds, the observed win
+rate for each strategy is likely to approximate its theoretical win
+probability. Repeated plays also make it clearer why switching is the
+better strategy. After one card has been dealt to the player, it is
+already determined whether switching will win the round for the
+player; and two times out of three the Ace of Spades is in the host's
+hand.
+
+If this is not convincing, the simulation can be done with the entire
+deck, dealing one card to the player and keeping the other 51 (Gardner
+1959b; Adams 1990). In this variant the Ace of Spades goes to the host
+51~times out of 52, and stays with the host no matter how many non-Ace
+cards are discarded.
+
+Another simulation, suggested by \textsc{vos Savant}, employs the
+\enquote{host} hiding a penny, representing the car, under one of
+three cups, representing the doors; or hiding a pea under one of three
+shells.
+
+\section{Solutions using conditional probability}
+\label{sec:solut-using-cond}
+
+
+The player is only asked whether or not he would like to switch after
+the host has opened a particular door, different from the player's
+initial choice, and revealed a goat behind it. In order to be sure of
+having the best possible chance of getting the car, the player should
+clearly make his decision of whether or not to switch on the basis of
+the probability that the car is behind the other closed door, given
+all the information which he has at this moment. That information
+consists, in the example given by \textsc{Marilyn vos Savant}, of the
+fact that it was door~1 which was initially chosen by himself, and
+that it was door~3 which was opened by the host to reveal a goat.
+
+\subsection{Refining the simple solution}
+\label{sec:refin-simple-solut}
+
+
+Given the player's initial choice, door~1, the host might also have
+opened door~2 to reveal a goat. Suppose we assume that the host is
+equally likely to open either door~2 or 3 if the car is behind
+door~1. We already assumed that the car is equally likely behind any
+of the three doors, and this remains so after the player has made his
+initial choice. It follows that the probability the car is behind
+door~1 given the host opens door~3 and the player initially chose
+door~1 must equal the probability that the car is behind door~1 given
+the host opens door~2 and the player initially chose door~1, since all
+elementary probabilities in the problem (probabilities of locations of
+car given the player initially chose door~1, and probabilities of
+which door the host will open if car is behind door~1, the door chosen
+by the player) are unchanged by interchanging the door numbers 2 and
+3.
+
+In other words, given that the player initially chose door~1, whether
+the host opens door~2 or door~3 gives us no information at all as to
+whether or not the car is behind door~1.
+
+In the simple solutions, we already observed that the probability that
+the car is behind door~1, the door initially chosen by the player, is
+initially \sfrac{1}{3}. Moreover, the host is certainly going to open
+a (different) door to reveal a goat, so opening a door (which door,
+door~2 or door~3, unspecified) does not change this probability. This
+probability, \sfrac{1}{3}, must be the average of the probability that
+the car is behind door~1, given the host opens door~2 and the player
+chose door~1, and the probability that the car is behind door~1, given
+the host opens door~3 and the player chose door~1, because these are
+the only two possibilities. But these two probabilities are the
+same. Therefore they are both equal to \sfrac{1}{3}.
+
+This more refined analysis (which can be found in the published
+discussion following the paper of \textsc{Morgan} et al. 1991) shows
+that the chance that the car is behind door~1 given that the player
+initially chose this door and given that the host opened door~3 is
+\sfrac{1}{3}, and it follows that the chance that the car is behind
+door~2 given the player initially chose door~1 and the host opened
+door~3 is \sfrac{2}{3}. The analysis also shows that the overall
+success rate of \sfrac{2}{3}, achieved by always switching, cannot be
+improved, and underlines what already may well have been intuitively
+obvious: the choice facing the player is that between the door
+initially chosen, and the other door left closed by the host: the
+specific numbers on these doors are irrelevant.
+
+\subsection{Conditional probability by direct calculation}
+\label{sec:cond-prob-direct}
+
+
+Most sources in the field of probability, including many introductory
+probability textbooks, solve the Monty Hall problem by showing from
+first principles that the conditional probabilities the car is behind
+door~1 and door~2 are \sfrac{1}{3} and \sfrac{2}{3} (not \sfrac{1}{2}
+and \sfrac{1}{2}) given the contestant initially picks door~1 and the
+host opens door~3 (Selvin (1975b), Morgan et al. 1991, Chun 1991,
+Gillman 1992, Carlton 2005, Grinstead and Snell 2006:137–138, Lucas et
+al. 2009). In contrast, the simple solutions above show that a player
+with a strategy of switching wins the car with overall probability
+\sfrac{2}{3}, i.\,e., without taking account of which door was opened
+by the host (Grinstead and Snell 2006:137–138 Carlton 2005). For
+example, if we imagine 300~repetitions of the show, in all of which
+the player initially chooses door~1, a strategy of \enquote{always
+  switching} will win about 200~times -- namely every time the car is
+not behind door~1. The solutions in this section consider just those
+cases in which not only the player picked door~1, but moreover the
+host went on to open door~3. After all, it is only after a door was
+opened to reveal a goat that the player was asked if he wants to
+switch or not. Of our total of 300~repetitions, door~3 will be opened
+by the host about 150~times: the other 150~times the host will open
+door~2. The following solutions show that when we restrict attention
+to the first mentioned 150~cases (player initially picked door~1, host
+went on to reveal a goat behind door~3), the car will be behind door~2
+about 100 times, but behind door 1 only about 50~times.
+
+By definition, the conditional probability of winning by switching
+given the contestant initially picks door~1 and the host opens door~3
+is the probability the car is behind door~2 and the host opens door~3
+divided by the probability the host opens door~3. These probabilities
+can be determined referring to the conditional probability table
+below, or to an equivalent decision tree as shown to the right (Chun
+1991; Carlton 2005; Grinstead and Snell 2006:137–138).
+
+Assuming the player picks door~1, the car is behind door~2 and the
+host opens door~3 with probability \sfrac{1}{3}. The car is behind
+door~1 and the host opens door~3 with probability \sfrac{1}{6}. These
+are the only possibilities given the player picks door~1 and the host
+opens door~3. Therefore, the conditional probability of winning by
+switching is \sfrac{\sfrac{1}{3}}{(\sfrac{1}{3} + \sfrac{1}{6})}, which is
+\sfrac{2}{3} (Selvin 1975b).
+
+The conditional probability table in \autoref{sec:cond-prob-table-1}
+shows how 300~cases, in all of which the player initially chooses
+door~1, would be split up, on average, according to the location of
+the car and the choice of door to open by the host.
+
+
+\subsection{Extension of vos Savant's table}
+\label{sec:extens-vos-savants}
+
+
+
+An equivalent way to present this approach (Rosenhouse, 2009; Krauss
+and Wang, 2003) is by extending \textsc{vos Savant}'s table
+(\autoref{sec:cond-prob-table-1}), where it is given that the player has
+chosen door~1. \autoref{tab:cond-prob-with-prob} shows it is with
+probabilities included:
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \toprule
+    \textsc{case} & \textsc{Prob.} & \textsc{behind} &
+    \textsc{behind} & \textsc{behind} & \textsc{result} & \textsc{result}\\
+    & & \textsc{door 1} & \textsc{door 2} & \textsc{door 3} &
+    \textsc{if staying} & \textsc{if switching}\\
+    \midrule
+    1 & \sfrac{1}{3} & \textbf{Car} & Goat & Goat & \textbf{Car} & Goat\\
+    \midrule
+    2 & \sfrac{1}{3} & Goat  & \textbf{Car} & Goat & Goat  & \textbf{Car} \\
+    \midrule
+    3 & \sfrac{1}{3} & Goat & Goat & \textbf{Car} &Goat  & \textbf{Car} \\
+\bottomrule
+  \end{tabular}
+  \caption{Conditional probability table with probabilities included}
+  \label{tab:cond-prob-with-prob}
+\end{table}
+
+Next we expand row~1 according to the host's behaviour - if he has a
+choice, into two equally likely subcases 1a and 1b
+(\autoref{tab:cond-prob-with-prob-1a-1b}):
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \toprule
+    \textsc{case} & \textsc{Prob.} & \textsc{behind} &
+    \textsc{behind} & \textsc{behind} & \textsc{opened} & \textsc{result} & \textsc{result}\\
+    & & \textsc{door 1} & \textsc{door 2} & \textsc{door 3} &
+    \textsc{door} &
+    \textsc{if staying} & \textsc{if switching}\\
+    \midrule
+    1a & \sfrac{1}{6} & \textbf{Car} & Goat & Goat & 2 & \textbf{Car} &  Goat\\
+    \midrule
+    1b & \sfrac{1}{6} & \textbf{Car} & Goat & Goat & \textbf{3} & \textbf{Car} &  Goat\\
+    \midrule
+    2 & \sfrac{1}{3} & Goat  & \textbf{Car} & Goat & \textbf{3} & Goat  & \textbf{Car} \\
+    \midrule
+    3 & \sfrac{1}{3} & Goat & Goat & \textbf{Car} & 2 &Goat  & \textbf{Car} \\
+\bottomrule
+  \end{tabular}
+  \caption{Conditional probability table with probabilities included}
+  \label{tab:cond-prob-with-prob-1a-1b}
+\end{table}
+
+Finally we expand the remaining rows, too; imagine a fair coin being
+tossed to separate each outcome of probability \sfrac{1}{3} into two
+outcomes of probability \sfrac{1}{6}. This splits case~2 into two
+equally likely subcases~2a and 2b, and case~3 into two equally likely
+subcases~3a and 3b (\autoref{tab:cond-prob-with-prob-1a-1b-2-3}):
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \toprule
+    \textsc{case} & \textsc{Prob.} & \textsc{behind} &
+    \textsc{behind} & \textsc{behind} & \textsc{opened} & \textsc{result} & \textsc{result}\\
+    & & \textsc{door 1} & \textsc{door 2} & \textsc{door 3} &
+    \textsc{door} &
+    \textsc{if staying} & \textsc{if switching}\\
+    \midrule
+    1a & \sfrac{1}{6} & \textbf{Car} & Goat & Goat & 2 & \textbf{Car} &  Goat\\
+    \midrule
+    1b & \sfrac{1}{6} & \textbf{Car} & Goat & Goat & \textbf{3} & \textbf{Car} &  Goat\\
+    \midrule
+    2a & \sfrac{1}{6} & Goat  & \textbf{Car} & Goat & \textbf{3} & Goat  & \textbf{Car} \\
+    \midrule
+    2b & \sfrac{1}{6} & Goat  & \textbf{Car} & Goat & \textbf{3} & Goat  & \textbf{Car} \\
+    \midrule
+    3a & \sfrac{1}{6} & Goat & Goat & \textbf{Car} & 2 &Goat  & \textbf{Car} \\
+    \midrule
+    3b & \sfrac{1}{6} & Goat & Goat & \textbf{Car} & 2 &Goat  & \textbf{Car} \\
+\bottomrule
+  \end{tabular}
+  \caption{Conditional probability table with probabilities included}
+  \label{tab:cond-prob-with-prob-1a-1b-2-3}
+\end{table}
+
+
+
+Now we have six equally likely cases, and can compute probabilities
+and conditional probabilities simply by counting. In three of the six
+equally likely cases, the host opens door~3. In two of those three
+cases, the car is behind door~2. Therefore the conditional probability
+of winning by switching given the host opened door~3 (and the player
+initially chose door 1) is \sfrac{2}{3}.
+
+\subsection{Bayes' theorem}
+
+
+Many probability text books and articles in the field of probability
+theory (and the teaching of probability theory) derive the conditional
+probability solution through a formal application of \textsc{Bayes}'
+theorem; among them Gill, 2002 and Henze, 1997. Use of the odds form
+of \textsc{Bayes}' theorem, often called \textsc{Bayes}' rule, makes
+such a derivation more transparent (Rosenthal, 2005a), (Rosenthal,
+2005b).
+
+Initially, the car is equally likely behind any of the three doors:
+the odds on door~1, door~2, and door~3 are $1\colon1\colon1$. This
+remains the case after the player has chosen door~1, by
+independence. According to \textsc{Bayes}' rule, the posterior odds on
+the location of the car, given the host opens door~3, are equal to the
+prior odds multiplied by the \textsc{Bayes} factor or likelihood,
+which is by definition the probability of the new piece of information
+(host opens door~3) under each of the hypotheses considered (location
+of the car). Now, since the player initially chose door~1, the chance
+the host opens door~3 is 50\,\% if the car is behind door~1, 100\,\%
+if the car is behind door~2, 0\,\% if the car is behind door~3. Thus
+the \textsc{Bayes} factor consists of the ratios $\sfrac{1}{2}\colon
+1\colon 0$ or equivalently $1\colon2\colon 0$, while the prior odds
+were $1\colon 1\colon 1$. Thus the posterior odds become equal to the
+\textsc{Bayes} factor $1\colon 2\colon 0$. Given the host opened
+door~3, the probability the car is behind door~3 is zero, and it is
+twice more likely to be behind door~2 than door~1.
+
+\textsc{Richard Gill} (2011) uses a similar argument to patch a
+missing step in \textsc{Devlin}'s combined doors solution (Devlin
+2003), described above (\enquote{Adams and Devlin}). \textsc{Devlin}
+does not explain why the information of which door had been opened by
+the host did not change the odds on door~1 hiding the car. The
+contestant is not just given the opportunity to choose between door~1
+and doors~2 plus 3 -- he is also told something specific about those
+two doors (\enquote{no car behind door 3}). Correspondents pointed out
+this missing step to \textsc{Devlin} and he later (Devlin 2005)
+retracted his \enquote{combined doors} solution, giving a direct
+calculation using \textsc{Bayes} theorem instead, saying that though
+unintuitive, it did at least give one the guarantee of obtaining the
+right answer in an automatic way.
+
+The justification provided by \textsc{Gill} is as follows. Given the
+car is not behind door~1 (the door initially chosen by the
+contestant), it is equally likely that it is behind door~2 or
+door~3. In those cases, the host is forced to open the other
+door. Therefore, the chance that the host opens door 3 given that the
+car is not behind door~1 is 50\,\%. Given the car is behind door~1 the
+chance that the host opens door~3 is also 50\,\%, because when the
+host has a choice, either choice is equally likely. Therefore, whether
+or not the car is behind door~1, the chance the host opens door~3 is
+50\,\%. The information \enquote{host opens door~3} contributes a
+Bayes factor or likelihood ratio of $50\colon 50$, or $1\colon 1$,
+concerning the question whether or not the car is behind
+door~1. Initially, the odds against door~1 hiding the car were
+$2\colon 1$. Therefore the posterior odds against door~1 hiding the
+car remain the same as the prior odds, $2\colon1$.
+
+In words, the information which door is opened by the host (door~2 or
+door~3?) reveals no information at all about whether or not the car is
+behind door~1, and this is precisely what is alleged to be intuitively
+obvious by supporters of simple solutions, or using the idioms of
+mathematical proofs, \enquote{obviously true, by symmetry} (Bell
+1992).
+
+\section{Strategic dominance solution}
+\label{sec:strat-domin-solut}
+
+Going back to \textsc{Nalebuff} (1987), the Monty Hall problem is also
+much studied in the literature on game theory and decision theory, and
+also some popular solutions (for instance, that were published in The
+Economist, see above, among the simple solutions) correspond to this
+point of view. \textsc{Vos Savant} asks for a decision, not a
+chance. And the chance aspects of how the car is hidden and how an
+unchosen door is opened are unknown. From this point of view, one has
+to remember that the player has two opportunities to make choices:
+first of all, which door to choose initially; and secondly, whether or
+not to switch. Since he does not know how the car is hidden nor how
+the host makes choices, he may be able to make use of his first choice
+opportunity, as it were to neutralize the actions of the team running
+the quiz show, including the host.
+
+Following \textsc{Gill}, 2011 a strategy of contestant involves two
+actions: the initial choice of a door and the decision to switch (or
+to stick) which may depend on both the door initially chosen and the
+door to which the host offers switching. For instance, one
+contestant's strategy is \enquote{choose door 1, then switch to door 2
+  when offered, and do not switch to door 3 when offered.} Twelve such
+deterministic strategies of the contestant exist.
+
+Elementary comparison of contestant's strategies shows that for every
+strategy~$A$ there is another strategy~$B$ \enquote{pick a door then
+  switch no matter what happens} which dominates it (Gnedin, 2011). No
+matter how the car is hidden and no matter which rule the host uses
+when he has a choice between two goats, if $A$ wins the car then $B$
+also does. For example, strategy~$A$ \enquote{pick door 1 then always
+  stick with it} is dominated by the strategy~$B$ \enquote{pick door 2
+  then always switch after the host reveals a door}: $A$ wins when
+door~1 conceals the car, while $B$ wins when one of the doors~1 and 3
+conceals the car. Similarly, strategy~$A$ \enquote{pick door~1 then
+  switch to door~2 (if offered), but do not switch to door~3 (if
+  offered)} is dominated by strategy~$B$ \enquote{pick door 3 then
+  always switch}.
+
+Dominance is a strong reason to seek for a solution among
+always-switching strategies, under fairly general assumptions on the
+environment in which the contestant is making decisions. In
+particular, if the car is hidden by means of some randomization device
+-- like tossing symmetric or asymmetric three-sided die -- the
+dominance implies that a strategy maximizing the probability of
+winning the car will be among three always-switching strategies,
+namely it will be the strategy which initially picks the least likely
+door then switches no matter which door to switch is offered by the
+host.
+
+Strategic dominance links the Monty Hall problem to the game
+theory. In the zero-sum game setting of Gill, 2011, discarding the
+nonswitching strategies reduces the game to the following simple
+variant: the host (or the TV-team) decides on the door to hide the
+car, and the contestant chooses two doors (i.\,e., the two doors
+remaining after the player's first, nominal, choice). The contestant
+wins (and her opponent loses) if the car is behind one of the two
+doors she chose.
+
+\chapter{Confusion and criticism}
+\label{sec:confusion-criticism}
+
+
+\section{Sources of confusion}
+\label{sec:sources-confusion}
+
+
+
+When first presented with the Monty Hall problem an overwhelming
+majority of people assume that each door has an equal probability and
+conclude that switching does not matter (Mueser and Granberg,
+1999). Out of 228~subjects in one study, only 13\,\% chose to switch
+(Granberg and Brown, 1995:713). In her book The Power of Logical
+Thinking, \textsc{vos Savant} (1996, p. 15) quotes cognitive
+psychologist \textsc{Massimo Piattelli-Palmarini} as saying
+\enquote{\dots{} other statistical puzzle comes so close to fooling
+  all the people all the time} and \enquote{that even Nobel physicists
+  systematically give the wrong answer, and that they insist on it,
+  and they are ready to berate in print those who propose the right
+  answer.} Interestingly, pigeons make mistakes and learn from
+mistakes, and experiments show that they rapidly learn to always
+switch, unlike humans (Herbranson and Schroeder, 2010).
+
+Most statements of the problem, notably the one in Parade Magazine, do
+not match the rules of the actual game show (Krauss and Wang, 2003:9),
+and do not fully specify the host's behavior or that the car's
+location is randomly selected (Granberg and Brown,
+1995:712). \textsc{Krauss} and \textsc{Wang} (2003:10) conjecture that
+people make the standard assumptions even if they are not explicitly
+stated. (From the point of view of subjective probability, the
+standard assumptions can be derived from the problem statement: they
+follow from our total lack of information about how the car is hidden,
+how the player initially chooses a door, and how the host chooses a
+door to open if there's a choice.)
+
+Although these issues are mathematically significant, even when
+controlling for these factors nearly all people still think each of
+the two unopened doors has an equal probability and conclude switching
+does not matter (Mueser and Granberg, 1999). This \enquote{equal
+  probability} assumption is a deeply rooted intuition (Falk
+1992:202). People strongly tend to think probability is evenly
+distributed across as many unknowns as are present, whether it is or
+not (Fox and Levav, 2004:637). Indeed, if a player believes that
+sticking and switching are equally successful and therefore equally
+often decides to switch as to stay, they will win 50\,\% of the time,
+reinforcing their original belief. Missing the unequal chances of
+those two doors, and in not considering that
+\sfrac{\sfrac{1}{3}+\sfrac{2}{3}}{2} gives a chance of 50\,\%, similar
+to \enquote{the little green woman} example (Marc C. Steinbach, 2000).
+
+The problem continues to attract the attention of cognitive
+psychologists. The typical behaviour of the majority, i.\,e., not
+switching, may be explained by phenomena known in the psychological
+literature as:
+\begin{inparaenum}
+\item the endowment effect (Kahneman et al., 1991); people
+tend to overvalue the winning probability of the already chosen –
+already \enquote{owned} – door;
+\item the status quo bias (Samuelson and
+Zeckhauser, 1988);
+\end{inparaenum}
+people prefer to stick with the choice of door they have already
+made. Experimental evidence confirms that these are plausible
+explanations which do not depend on probability intuition (Morone and
+Fiore, 2007).
+
+\section{Criticism of the simple solutions}
+\label{sec:crit-simple-solut}
+
+
+As already remarked, most sources in the field of probability,
+including many introductory probability textbooks, solve the problem
+by showing the conditional probabilities the car is behind door~1 and
+door~2 are \sfrac{1}{3} and \sfrac{2}{3} (not \sfrac{1}{2} and
+\sfrac{1}{2}) given the contestant initially picks door~1 and the host
+opens door~3; various ways to derive and understand this result were
+given in the previous subsections. Among these sources are several
+that explicitly criticize the popularly presented \enquote{simple}
+solutions, saying these solutions are \enquote{correct but ... shaky}
+(Rosenthal 2005a), or do not \enquote{address the problem posed}
+(Gillman 1992), or are \enquote{incomplete} (Lucas et al. 2009), or
+are \enquote{unconvincing and misleading} (Eisenhauer 2001) or are
+(most bluntly) \enquote{false} (Morgan et al. 1991). Some say that
+these solutions answer a slightly different question – one phrasing is
+\enquote{you have to announce before a door has been opened whether
+  you plan to switch} (Gillman 1992, emphasis in the original).
+
+The simple solutions show in various ways that a contestant who is
+determined to switch will win the car with probability \sfrac{2}{3},
+and hence that switching is the winning strategy, if the player has to
+choose in advance between \enquote{always switching}, and
+\enquote{always staying}. However, the probability of winning by
+always switching is a logically distinct concept from the probability
+of winning by switching given the player has picked door~1 and the
+host has opened door~3. As one source says, \enquote{the distinction
+  between [these questions] seems to confound many} (Morgan et
+al. 1991). This fact that these are different can be shown by varying
+the problem so that these two probabilities have different numeric
+values. For example, assume the contestant knows that Monty does not
+pick the second door randomly among all legal alternatives but
+instead, when given an opportunity to pick between two losing doors,
+Monty will open the one on the right. In this situation the following
+two questions have different answers:
+
+\begin{enumerate}
+\item What is the probability of winning the car by always switching?
+\item What is the probability of winning the car given the player has
+  picked door~1 and the host has opened door~3?
+\end{enumerate}
+
+
+The answer to the first question is \sfrac{2}{3}, as is correctly
+shown by the \enquote{simple} solutions. But the answer to the second
+question is now different: the conditional probability the car is
+behind door~1 or door~2 given the host has opened door 3 (the door on
+the right) is \sfrac{1}{2}. This is because Monty's preference for
+rightmost doors means he opens door 3 if the car is behind door~1
+(which it is originally with probability \sfrac{1}{3}) or if the car
+is behind door~2 (also originally with probability \sfrac{1}{3}). For
+this variation, the two questions yield different answers. However as
+long as the initial probability the car is behind each door is
+\sfrac{1}{3}, it is never to the contestant's disadvantage to switch,
+as the conditional probability of winning by switching is always at
+least \sfrac{1}{2}. (Morgan et al. 1991)
+
+There is disagreement in the literature regarding whether \textsc{vos
+  Savant}'s formulation of the problem, as presented in Parade
+magazine, is asking the first or second question, and whether this
+difference is significant (Rosenhouse 2009). \textsc{Behrends} (2008)
+concludes that \enquote{One must consider the matter with care to see
+  that both analyses are correct}; which is not to say that they are
+the same. One analysis for one question, another analysis for the
+other question. Several discussants of the paper by (Morgan et
+al. 1991), whose contributions were published alongside the original
+paper, strongly criticized the authors for altering \textsc{vos
+  Savant}'s wording and misinterpreting her intention (Rosenhouse
+2009). One discussant (\textsc{William Bell}) considered it a matter
+of taste whether or not one explicitly mentions that (under the
+standard conditions), which door is opened by the host is independent
+of whether or not one should want to switch.
+
+Among the simple solutions, the \enquote{combined doors solution}
+comes closest to a conditional solution, as we saw in the discussion
+of approaches using the concept of odds and \textsc{Bayes} theorem. It
+is based on the deeply rooted intuition that revealing information
+that is already known does not affect probabilities. But knowing the
+host can open one of the two unchosen doors to show a goat does not
+mean that opening a specific door would not affect the probability
+that the car is behind the initially chosen door. The point is, though
+we know in advance that the host will open a door and reveal a goat,
+we do not know which door he will open. If the host chooses uniformly
+at random between doors hiding a goat (as is the case in the standard
+interpretation) this probability indeed remains unchanged, but if the
+host can choose non-randomly between such doors then the specific door
+that the host opens reveals additional information. The host can
+always open a door revealing a goat and (in the standard
+interpretation of the problem) the probability that the car is behind
+the initially chosen door does not change, but it is not because of
+the former that the latter is true. Solutions based on the assertion
+that the host's actions cannot affect the probability that the car is
+behind the initially chosen appear persuasive, but the assertion is
+simply untrue unless each of the host's two choices are equally
+likely, if he has a choice (Falk 1992:207,213). The assertion
+therefore needs to be justified; without justification being given,
+the solution is at best incomplete. The answer can be correct but the
+reasoning used to justify it is defective.
+
+Some of the confusion in the literature undoubtedly arises because the
+writers are using different concepts of probability, in particular,
+Bayesian versus frequentist probability. For the Bayesian, probability
+represents knowledge. For us and for the player, the car is initially
+equally likely to be behind each of the three doors because we know
+absolutely nothing about how the organizers of the show decided where
+to place it. For us and for the player, the host is equally likely to
+make either choice (when he has one) because we know absolutely
+nothing about how he makes his choice. These \enquote{equally likely}
+probability assignments are determined by symmetries in the
+problem. The same symmetry can be used to argue in advance that
+specific door numbers are irrelevant, as we saw above.
+
+\chapter{Variants}
+\label{sec:variants}
+
+
+A common variant of the problem, assumed by several academic authors
+as the canonical problem, does not make the simplifying assumption
+that the host must uniformly choose the door to open, but instead that
+he uses some other strategy. The confusion as to which formalization
+is authoritative has led to considerable acrimony, particularly
+because this variant makes proofs more involved without altering the
+optimality of the always-switch strategy for the player. In this
+variant, the player can have different probabilities of winning
+depending on the observed choice of the host, but in any case the
+probability of winning by switching is at least \sfrac{1}{2} (and can
+be as high as 1), while the overall probability of winning by
+switching is still exactly \sfrac{2}{3}. The variants are sometimes
+presented in succession in textbooks and articles intended to teach
+the basics of probability theory and game theory. A considerable
+number of other generalizations have also been studied.
+
+\section{Other host behaviors}
+\label{sec:other-host-behaviors}
+
+
+The version of the Monty Hall problem published in Parade in 1990 did
+not specifically state that the host would always open another door,
+or always offer a choice to switch, or even never open the door
+revealing the car. However, \textsc{vos Savant} made it clear in her
+second follow-up column that the intended host's behavior could only
+be what led to the \sfrac{2}{3} probability she gave as her original
+answer. \enquote{Anything else is a different question}. (vos Savant
+1991a) \enquote{Virtually all of my critics understood the intended
+  scenario. I personally read nearly three thousand letters (out of
+  the many additional thousands that arrived) and found nearly every
+  one insisting simply that because two options remained (or an
+  equivalent error), the chances were even. Very few raised questions
+  about ambiguity, and the letters actually published in the column
+  were not among those few.} (vos Savant 1996) The answer follows if
+the car is placed randomly behind any door, the host must open a door
+revealing a goat regardless of the player's initial choice and, if two
+doors are available, chooses which one to open randomly (Mueser and
+Granberg, 1999). The table below shows a variety of other possible
+host behaviors and the impact on the success of switching.
+
+Determining the player's best strategy within a given set of other
+rules the host must follow is the type of problem studied in game
+theory. For example, if the host is not required to make the offer to
+switch the player may suspect the host is malicious and makes the
+offers more often if the player has initially selected the car. In
+general, the answer to this sort of question depends on the specific
+assumptions made about the host's behaviour, and might range from
+\enquote{ignore the host completely} to \enquote{toss a coin and
+  switch if it comes up heads}; see the last row of the table below.
+
+Morgan et al. (1991) and Gillman (1992) both show a more general
+solution where the car is (uniformly) randomly placed but the host is
+not constrained to pick uniformly randomly if the player has initially
+selected the car, which is how they both interpret the statement of
+the problem in Parade despite the author's disclaimers. Both changed
+the wording of the Parade version to emphasize that point when they
+restated the problem. They consider a scenario where the host chooses
+between revealing two goats with a preference expressed as a
+probability~$q$, having a value between 0 and 1. If the host picks
+randomly q would be \sfrac{1}{2} and switching wins with probability
+\sfrac{2}{3} regardless of which door the host opens. If the player
+picks door~1 and the host's preference for door~3 is $q$, then the
+probability the host opens door~3 and the car is behind door~2 is
+\sfrac{1}{3} while the probability the opens door~3 and the car is
+behind door~1 is $(\sfrac{1}{3})q$. These are the only cases where the
+host opens door~3, so the conditional probability of winning by
+switching given the host opens door~3 is $\sfrac{\sfrac{1}{3}}{(\sfrac{1}{3}
++ (\sfrac{1}{3})q)}$ which simplifies to $\sfrac{1}{(1+q)}$. Since $q$
+can vary between 0 and 1 this conditional probability can vary between
+\sfrac{1}{2} and 1. This means even without constraining the host to
+pick randomly if the player initially selects the car, the player is
+never worse off switching. However neither source suggests the player
+knows what the value of $q$ is so the player cannot attribute a
+probability other than the \sfrac{2}{3} that \textsc{vos Savant}
+assumed was implicit.
+
+% \begin{table}[htb]
+%   \centering
+  \begin{longtabu}{|X|X|}
+    \toprule
+    \textbf{Host behaviour} & \textbf{Result}\\
+    \midrule
+\endhead{}
+    \enquote{Monty from Hell}: The host offers the option to switch only
+    when the player's initial choice is the winning door. (Tierney 1991) &
+    Switching always yields a goat.\\
+    \midrule
+    \enquote{Angelic Monty}: The host offers the option to switch only
+    when the player has chosen incorrectly (Granberg 1996:185). &
+    Switching always wins the car.\\
+    \midrule
+    \enquote{Monty Fall} or \enquote{Ignorant Monty}: The host does
+    not know what lies behind the doors, and opens one at random that
+    happens not to reveal the car (Granberg and Brown, 1995:712)
+    (Rosenthal, 2005a) (Rosenthal, 2005b). &	Switching wins the car
+    half of the time.\\
+    \midrule
+    The host knows what lies behind the doors, and (before the
+    player's choice) chooses at random which goat to reveal. He offers
+    the option to switch only when the player's choice happens to
+    differ from his. & Switching wins the car half of the time.\\
+    \midrule
+    The host always reveals a goat and always offers a switch. If he
+    has a choice, he chooses the leftmost goat with probability~$p$
+    (which may depend on the player's initial choice) and the
+    rightmost door with probability $q=1-p$. (Morgan et al. 1991)
+    (Rosenthal, 2005a) (Rosenthal, 2005b). & If the host opens the
+    rightmost door, switching wins with probability
+    $\sfrac{1}{(1+q)}$.\\
+    \midrule
+    The host acts as noted in the specific version of the problem. &
+    Switching wins the car two-thirds of the time.
+    (Special case of the above with $p=q=\sfrac{1}{2}$)\\
+    \midrule
+    The host opens a door and makes the offer to switch 100\,\% of the
+    time if the contestant initially picked the car, and 50\,\% the
+    time otherwise. (Mueser and Granberg 1999) & Switching wins
+    \sfrac{1}{2} the time at the Nash equilibrium.\\
+    \midrule
+    Four-stage two-player game-theoretic (Gill, 2010, Gill, 2011). The
+    player is playing against the show organisers (TV station) which
+    includes the host. First stage: organizers choose a door (choice
+    kept secret from player). Second stage: player makes a preliminary
+    choice of door. Third stage: host opens a door. Fourth stage:
+    player makes a final choice. The player wants to win the car, the
+    TV station wants to keep it. This is a zero-sum two-person
+    game. By von Neumann's theorem from game theory, if we allow both
+    parties fully randomized strategies there exists a minimax
+    solution or Nash equilibrium (Mueser and Granberg 1999). & Minimax
+    solution (Nash equilibrium): car is first hidden uniformly at
+    random and host later chooses uniform random door to open without
+    revealing the car and different from player's door; player first
+    chooses uniform random door and later always switches to other
+    closed door. With his strategy, the player has a win-chance of at
+    least \sfrac{2}{3}, however the TV station plays; with the TV
+    station's strategy, the TV station will lose with probability at
+    most \sfrac{2}{3}, however the player plays. The fact that these
+    two strategies match (at least \sfrac{2}{3}, at most \sfrac{2}{3})
+    proves that they form the minimax solution.\\
+    \midrule
+    As previous, but now host has option not to open a door at all. &
+    Minimax solution (Nash equilibrium): car is first hidden uniformly
+    at random and host later never opens a door; player first chooses
+    a door uniformly at random and later never switches. Player's
+    strategy guarantees a win-chance of at least \sfrac{1}{3}. TV
+    station's strategy guarantees a lose-chance of at most
+    \sfrac{1}{3}.\\
+    \bottomrule
+   \caption{Possible host behaviors in unspecified problem}
+  \end{longtabu}
+%   \label{tab:host-behave}
+% \end{table}
+
+\section{\texorpdfstring{$N$}{N} doors}
+\label{sec:n-doors}
+
+
+
+\textsc{D.\,L.\,Ferguson} (1975 in a letter to \textsc{Selvin} cited
+in (Selvin 1975b)) suggests an $N$-door generalization of the original
+problem in which the host opens $p$ losing doors and then offers the
+player the opportunity to switch; in this variant switching wins with
+probability $\sfrac{(N-1)}{N(N-p-1)}$. If the host opens even a single
+door, the player is better off switching, but, if the host opens only
+one door, the advantage approaches zero as $N$ grows large (Granberg
+1996:188). At the other extreme, if the host opens all but one losing
+door the advantage increases as $N$ grows large (the probability of
+winning by switching approaches $1$ as $N$ grows very large).
+
+\section{Quantum version}
+\label{sec:quantum-version}
+
+
+
+A quantum version of the paradox illustrates some points about the
+relation between classical or non-quantum information and quantum
+information, as encoded in the states of quantum mechanical
+systems. The formulation is loosely based on quantum game theory. The
+three doors are replaced by a quantum system allowing three
+alternatives; opening a door and looking behind it is translated as
+making a particular measurement. The rules can be stated in this
+language, and once again the choice for the player is to stick with
+the initial choice, or change to another \enquote{orthogonal}
+option. The latter strategy turns out to double the chances, just as
+in the classical case. However, if the show host has not randomized
+the position of the prize in a fully quantum mechanical way, the
+player can do even better, and can sometimes even win the prize with
+certainty (Flitney and Abbott 2002, D'Ariano et al. 2002).
+
+\chapter{History}
+\label{sec:history}
+
+
+
+The earliest of several probability puzzles related to the Monty Hall
+problem is \textsc{Bertrand}'s box paradox, posed by \textsc{Joseph
+  Bertrand} in 1889 in his Calcul des probabilités (Barbeau 1993). In
+this puzzle there are three boxes: a box containing two gold coins, a
+box with two silver coins, and a box with one of each. After choosing
+a box at random and withdrawing one coin at random that happens to be
+a gold coin, the question is what is the probability that the other
+coin is gold. As in the Monty Hall problem the intuitive answer is
+\sfrac{1}{2}, but the probability is actually \sfrac{2}{3}.
+
+The Three Prisoners problem, published in \textsc{Martin Gardner}'s
+Mathematical Games column in Scientific American in 1959 (1959a,
+1959b), is equivalent to the Monty Hall problem. This problem involves
+three condemned prisoners, a random one of whom has been secretly
+chosen to be pardoned. One of the prisoners begs the warden to tell
+him the name of one of the others who will be executed, arguing that
+this reveals no information about his own fate but increases his
+chances of being pardoned from \sfrac{1}{3} to \sfrac{1}{2}. The
+warden obliges, (secretly) flipping a coin to decide which name to
+provide if the prisoner who is asking is the one being pardoned. The
+question is whether knowing the warden's answer changes the prisoner's
+chances of being pardoned. This problem is equivalent to the Monty
+Hall problem; the prisoner asking the question still has a
+\sfrac{1}{3} chance of being pardoned but his unnamed colleague has a
+\sfrac{2}{3} chance.
+
+\textsc{Steve Selvin} posed the Monty Hall problem in a pair of
+letters to the American Statistician in 1975 (Selvin 1975a), (Selvin
+1975b). The first letter presented the problem in a version close to
+its presentation in Parade~15 years later. The second appears to be
+the first use of the term \enquote{Monty Hall problem}. The problem is
+actually an extrapolation from the game show. Monty Hall did open a
+wrong door to build excitement, but offered a known lesser prize –
+such as \$\,100 cash – rather than a choice to switch doors. As \textsc{Monty
+Hall} wrote to \textsc{Selvin}:
+
+\begin{quote}
+  And if you ever get on my show, the rules hold fast for you – no
+  trading boxes after the selection.
+\hfill{\textsc{Hall} 1975}
+\end{quote}
+
+
+A version of the problem very similar to the one that appeared three
+years later in Parade was published in 1987 in the Puzzles section of
+The Journal of Economic Perspectives (Nalebuff
+1987). \textsc{Nalebuff}, as later writers in mathematical economics,
+sees the problem as a simple and amusing exercise in game theory.
+
+\textsc{Phillip Martin}'s article in a 1989 issue of Bridge Today
+magazine titled \enquote{The Monty Hall Trap} (Martin 1989) presented
+\textsc{Selvin}'s problem as an example of what \textsc{Martin} calls
+the probability trap of treating non-random information as if it were
+random, and relates this to concepts in the game of bridge.
+
+A restated version of \textsc{Selvin}'s problem appeared in
+\textsc{Marilyn vos Savant}'s Ask Marilyn question-and-answer column
+of Parade in September 1990. (vos Savant 1990a) Though \textsc{vos
+  Savant} gave the correct answer that switching would win two-thirds
+of the time, she estimates the magazine received \num{10000}~letters
+including close to \num{1000} signed by PhDs, many on letterheads of
+mathematics and science departments, declaring that her solution was
+wrong. (Tierney 1991) Due to the overwhelming response, Parade
+published an unprecedented four columns on the problem. (vos Savant
+1996, p. xv) As a result of the publicity the problem earned the
+alternative name Marilyn and the Goats.
+
+In November 1990, an equally contentious discussion of \textsc{vos
+  Savant}'s article took place in \textsc{Cecil Adams}'s column The
+Straight Dope (Adams 1990). \textsc{Adams} initially answered,
+incorrectly, that the chances for the two remaining doors must each be
+one in two. After a reader wrote in to correct the mathematics of
+\textsc{Adams}'s analysis, \textsc{Adams} agreed that mathematically,
+he had been wrong, but said that the Parade version left critical
+constraints unstated, and without those constraints, the chances of
+winning by switching were not necessarily \sfrac{2}{3}. Numerous
+readers, however, wrote in to claim that \textsc{Adams} had been
+\enquote{right the first time} and that the correct chances were one
+in two.
+
+The Parade column and its response received considerable attention in
+the press, including a front page story in the New York Times in which
+\textsc{Monty Hall} himself was interviewed. (Tierney 1991)
+\textsc{Hall} appeared to understand the problem, giving the reporter
+a demonstration with car keys and explaining how actual game play on
+Let's Make a Deal differed from the rules of the puzzle.
+
+\section{Recent discussion}
+\label{sec:recent-discussion}
+
+
+
+Over 75~papers have been published about this problem in academic
+journals and the popular press. Barbeau 2000 contains a survey of the
+academic literature pertaining to the Monty Hall problem and other
+closely related problems as of the year 2000, and contains citations
+to 40~publications on the problem. At present the book Rosenhouse 2009
+has the most recent comprehensive academic survey, and refers to at
+least 25~publications on the topic which appeared subsequently to
+Barbeau's book. Since then another 10 or so publications have come
+out. Nowadays, Wikipedia is frequently cited as a source for Monty
+Hall problem (it is cited, for instance, by Ruma Falk, Rosenhouse
+2009, Gill 2012, Gnedin 2012).
+
+The problem continues to appear in many venues:
+
+\begin{itemize}
+\item The syndicated NPR program Car Talk featured it as one of their
+  weekly \enquote{Puzzlers}, and the answer they featured was quite
+  clearly explained as the correct one (Magliozzi and Magliozzi,
+  1998).
+\item Accounts of the Hungarian mathematician \textsc{Paul Erdős}'s
+  first encounter of the problem can be found in The Man Who Loved
+  Only Numbers and Vazsonyi 1999; like so many others, \textsc{Erdős}
+  initially got it wrong.
+
+\item The problem is presented in fictional form in the first chapter
+  of the novel Mr Mee (2000) by \textsc{Andrew Crumey}.
+\item  The problem is discussed, from the perspective of a boy with
+  Asperger syndrome, in The Curious Incident of the Dog in the
+  Night-Time, a 2003 novel by \textsc{Mark Haddon}.
+\item The problem is also addressed in a lecture by the character
+  \textsc{Charlie Eppes} in an episode of the CBS drama NUMB3RS
+  (Episode 1.13).
+\item \textsc{Derren Brown} explains the Monty Hall problem in his
+  stage show Svengali. (Frost 2012) After asking a member of the
+  audience to choose the location of his shoe from three boxes, he
+  reveals an empty box from one of the ones not chosen. He then asks
+  if they would like to change their mind and recommends that they do
+  so, as it will increase their chances of winning. He explains this
+  further by demonstrating on a large screen the same puzzle but with
+  one hundred boxes. The member of the audience decides to stick with
+  their decision and loses. The problem is also addressed in his 2006
+  book Tricks Of The Mind.
+\item The problem is featured in \textsc{Ian McEwan}'s 2012 novel
+  Sweet Tooth.
+\item \textsc{Penn Jillette} explained the Monty Hall Problem on the
+  \enquote{Luck} episode of \textsc{Bob Dylan}'s Theme Time Radio Hour
+  radio series.
+\item The Monty Hall problem appears in the film 21 (Bloch 2008).
+\item Economist \textsc{M.\,Keith Chen} identified a potential flaw in
+  hundreds of experiments related to cognitive dissonance that use an
+  analysis with issues similar to those involved in the Monty Hall
+  problem. (Tierney 2008)
+\item In 2009 a book-length discussion of the problem, its history,
+  methods of solution, and variations, was published by Oxford
+  University Press (Rosenhouse 2009).
+\item The problem is presented, discussed, and tested in the
+  television show MythBusters on 23 November 2011. This paradox was
+  not only tested to see if there was an advantage to switching
+  vs. sticking (which, in a repeated sample of 49 \enquote{tests},
+  showed a significant advantage to switching), but they also tested
+  the behavior of \enquote{contestants} presented with the same
+  situation. All 20 of the common \enquote{contestants} tested chose
+  to stay with their original choice.
+\item The problem was also discussed and tested on the television show
+  \textsc{James May}'s Man Lab on 11 April 2013. In this presentation,
+  each test was done by presenting three identical beer cans, two of
+  which had been shaken (with the result that opening it would douse
+  the person in beer foam). \textsc{James May} performed this test
+  100~times, each time switching his choice from his original choice
+  after one of the shaken cans was removed. In the end, he was doused
+  40~times, while his colleague Sim, who had to pick the remaining
+  beer can, was doused 60~times. The resulting percentage was roughly
+  what they expected, but the explanation \textsc{James May} gave was
+  not correct.[citation needed]
+\item \textsc{Craig Whitaker}'s actual letter to \textsc{vos Savant}
+  has been found, and his original question reported in Morgan et
+  al. Response to Hogbin and Nijdam (2011): \enquote{I’ve worked out
+    two different situations (based on Monty’s prior behavior
+    i.e. weather [sic.] or not he knows what’s behind the doors) in
+    one situation it is to your advantage to switch, in the other
+    there is no advantage to switch.} \enquote{What do you think?}
+\end{itemize}
+
+\chapter{See also}
+\label{sec:see-also}
+
+
+
+\begin{itemize}
+\item Boy or Girl paradox \cite{Frost.2012}
+\item Principle of restricted choice (bridge)
+\item Sleeping Beauty problem
+\item Two envelopes problem
+\end{itemize}
+
+\appendix{}
+
+\chapter{Conditional probability table}
+\label{sec:cond-prob-table}
+\begin{landscape}
+  \begin{tabularx}{\linewidth}{|X|X|X|X|}
+    \toprule
+    \textbf{Car hidden behind Door 3
+      (on average, 100 cases out of 300)} &
+    \multicolumn{2}{c|}{\textbf{Car hidden behind Door 1
+      (on average, 100 cases out of 300)}} & 
+    \textbf{Car hidden behind Door 2
+      (on average, 100 cases out of 300)}\\
+    \tabuphantomline
+    \midrule
+    \multicolumn{4}{|c|}{\textbf{Player initially picks Door 1, 300
+        repetitions}}\\
+    \tabuphantomline
+    \midrule
+    \includegraphics[width=.2\columnwidth]{Monty-RightCar} &
+    \multicolumn{2}{c|}{\includegraphics[width=.2\columnwidth]{Monty-LeftCar}} &
+    \includegraphics[width=.2\columnwidth]{Monty-MiddleCar}\\
+    \tabuphantomline
+    \midrule
+    \cellcolor{gray!50}Host must open Door 2 (100 cases) &
+    \cellcolor{gray!50}Host randomly opens Door 2 (on average, 50
+    cases) & Host randomly opens Door 3 (on average, 50 cases) & Host
+    must open Door 3 (100 cases)\\
+    \midrule
+    \cellcolor{gray!50}\includegraphics[width=.2\columnwidth]{Monty-RightCarSwitch}
+    & \cellcolor{gray!50}\includegraphics[width=.2\columnwidth]{Monty-LeftCarSwitch2}
+    & \includegraphics[width=.2\columnwidth]{Monty-LeftCarSwitch1}
+    & \includegraphics[width=.2\columnwidth]{Monty-MiddleCarSwitch}\\
+    \midrule
+    \cellcolor{gray!50}Probability \sfrac{1}{3} (100 out of 300) &
+    \cellcolor{gray!50}Probability
+    \sfrac{1}{6} (50 out of 300) & Probability \sfrac{1}{6} (50 out of
+    300) & Probability \sfrac{1}{3} (100 out of 300)\\
+    \midrule
+    \cellcolor{gray!50}Switching wins & \cellcolor{gray!50}Switching loses & Switching loses & Switching
+    wins\\
+    \midrule
+    \multicolumn{2}{|c|}{\cellcolor{gray!50}On those occasions when the
+      host opens Door 2,} & \multicolumn{2}{c|}{On those occasions when
+      the host opens Door 3,}\\
+    \multicolumn{2}{|c|}{\cellcolor{gray!50}switching wins twice as
+      often as staying (100 cases versus 50)} &
+    \multicolumn{2}{c}{switching wins twice as often as staying
+      (100 cases versus 50)}\\
+    \bottomrule
+  \end{tabularx}
+\label{sec:cond-prob-table-1}
+\end{landscape}
+
+
+
+\bibliographystyle{authordate2}
+\bibliography{mont}
+
+\end{document}
