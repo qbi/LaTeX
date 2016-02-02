@@ -31,6 +31,17 @@
 %% Gebrochene Zahlen setzen
 \usepackage{xfrac}
 
+%% Einbinden der Bibliogrpahy
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{monty-hall}
+
+%% Satz von SI-Einheiten
+\usepackage[binary-units]{siunitx}
+\sisetup{unit-mode = text}
+
+%% Satz des Euro-Zeichens
+\usepackage{eurosym}
+
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{xspace}
@@ -107,7 +118,7 @@ veröffentlichte. Weltweit bekannt und zum Gegenstand einer
 kontroversen Debatte wurde das Problem aber erst durch seine
 Publikation in \Savant s Kolumne \enquote{Ask Marilyn} im Magazin
 Parade im Jahr 1990. Die dortige Version beruht auf einem Leserbrief,
-den \Savant{} von \Whitaker{} aus Columbia, Maryland, erhalten hatte:
+den \Savant{} von \Whitaker{} aus Columbia, Maryland, erhalten hatte:\autocite{rosenhouse09}
 \begin{quotation}
   Nehmen Sie an, Sie wären in einer Spielshow und hätten die Wahl
   zwischen drei Toren. Hinter einem der Tore ist ein Auto, hinter den
@@ -115,7 +126,7 @@ den \Savant{} von \Whitaker{} aus Columbia, Maryland, erhalten hatte:
   und der Showmaster, der weiß, was hinter den Toren ist, öffnet ein
   anderes Tor, sagen wir, Nummer~3, hinter dem eine Ziege steht. Er
   fragt Sie nun: \enquote{Möchten Sie das Tor Nummer~2?} Ist es von
-  Vorteil, die Wahl des Tores zu ändern?
+  Vorteil, die Wahl des Tores zu ändern?\autocite{savant1990}
 \end{quotation}
 
 Die Fragestellung in dieser Form ist unterbestimmt, die richtige
@@ -126,5 +137,50 @@ werden. \Savant{} gab die Antwort \enquote{Ja, Sie sollten
 ist, obwohl unter Zusatzannahmen richtig, auch unter diesen
 Zusatzannahmen für viele Menschen kontraintuitiv. In der Folge erhielt
 \Savant{} nach ihrer eigenen Schätzung zehntausend Briefe, die ganz
-überwiegend die Richtigkeit ihrer Antwort bezweifelten.
+überwiegend die Richtigkeit ihrer Antwort bezweifelten.\autocite{tierney91}
+
+\part{Die erfahrungsbezogene Antwort}
+\label{part:erfantwort}
+
+Wenn man die Frage Personen stellt, die sich noch nicht mit dem
+Problem beschäftigt hatten, vermuten diese häufig, dass die
+Gewinnchancen für die Tore~1 und 2 gleich hoch seien. Als Grund dafür
+wird oft angegeben, dass man ja nichts über die Motivation des
+Showmasters wisse, das Tor~3 mit einer Ziege dahinter zu öffnen und
+einen Wechsel anzubieten. Es greife daher das Indifferenzprinzip.
+
+Die Intuition beim Verständnis des Leserbriefs geht davon aus, dass es
+sich bei der Problemstellung um die Beschreibung einer einmaligen
+Spielsituation handelt. Außerdem zeugt die Antwort von einer gewissen
+Vertrautheit mit Spielshows wie Geh aufs Ganze, in denen der
+Showmaster (Moderator) eine aktive und unberechenbare Rolle spielt. Im
+Gegensatz zu den Problemvarianten, in denen der Moderator auf einen an
+fixe Verhaltensregeln gebundenen \enquote{Handlanger} reduziert wird, darf
+realistischerweise angenommen werden, dass er völlig frei in seinen
+Entscheidungen ist (\LHall: \enquote{Ich bin der Hausherr!}). Diese
+Freiheit kann anhand einiger Beispiele illustriert werden, wobei vor
+jedem Spiel Auto und Ziegen hinter den drei Toren zufällig neu
+verteilt wurden. Weil die Kandidaten diese Spielshow, für die sie sich
+als Teilnehmer beworben haben, kennen, ist ihnen die Unberechenbarkeit
+des Moderators natürlich bewusst.
+\begin{enumerate}[Sp{i}el~1]
+\item Kandidat Alfred wählt Tor 1, der Moderator öffnet das Tor 1 mit
+  einer Ziege dahinter; Alfred verliert.
+\item Kandidat Bertram wählt Tor 1, der Moderator öffnet Tor 2 mit
+  einer Ziege dahinter und bietet Bertram an, seine Wahl zu
+  ändern. Bertram möchte wechseln, aber der Moderator öffnet kein Tor,
+  sondern bietet \SI{5000}{\euro} dafür, dass Bertram bei seiner ersten
+  Wahl bleibt. Dieser ändert seine Wechsel-Entscheidung nicht, und der
+  Moderator öffnet Tor 3 mit einer Ziege dahinter; Bertram verliert.
+\item Kandidatin Conny wählt Tor 1, der Moderator öffnet kein Tor,
+  sondern bietet der Kandidatin \SI{1000}{\euro} dafür, dass sie auf
+  das Öffnen des Tors verzichtet; Conny nimmt das Geld und gewinnt
+  \SI{1000}{\euro}.
+\item Kandidatin Doris wählt Tor 1, der Moderator öffnet daraufhin Tor
+  3 mit einer Ziege dahinter und bietet Doris an, ihre Wahl zu
+  überdenken \dots
+\end{enumerate}
+
+
+\printbibliography
 \end{document}
