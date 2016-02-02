@@ -25,6 +25,8 @@
 %% Verbesserung der typografischen Qualität des Dokuments
 \usepackage{microtype}
 
+%% Formatierung und Indexierung von Personnamen
+\usepackage[alwaysformat]{nameauth}
 
 \usepackage{lmodern}
 \usepackage{graphicx}
@@ -38,6 +40,13 @@
 \usepackage{todonotes}
 
 \usepackage[colorlinks,breaklinks]{hyperref}
+
+\begin{nameauth}
+  \<Hall & Monty & Hall & >
+  \<Savant & Marylin & vos Savant & >
+  \<Selvin & Steve & selvin & >
+\end{nameauth}
+
 
 \begin{document}
 \titlehead{Universität of Foo Bar\\
@@ -68,6 +77,23 @@ Musterstraße 123\\
 \newpage{}
 % \setcounter{page}{1}
 % \pagenumbering{arabic}
+
+Das \emph{Ziegenproblem}, \emph{Drei-Türen-Problem},
+\emph{Monty-Hall-Problem} oder \emph{Monty-Hall-Dilemma} ist eine
+Aufgabe mit Bezug zur Wahrscheinlichkeitstheorie. Die Aufgabenstellung
+ist lose der Spielshow \textit{Let’s Make a Deal} nachempfunden,
+welche im deutschen Sprachraum in der Variante \textit{Geh aufs
+  Ganze!} bekannt wurde. Die Bezeichnungen beziehen sich auf \Hall{},
+den Moderator von \textit{Let’s Make a Deal}, oder auf die Ziegen, die
+in einer bekannten Problemformulierung neben dem richtigen Preis,
+einem Auto, als Trostpreise zu gewinnen sind.
+
+Das Ziegenproblem wird oft als Beispiel dafür herangezogen, dass der
+menschliche Verstand zu Trugschlüssen neigt, wenn es um das Bestimmen
+von Wahrscheinlichkeiten geht, und ist Gegenstand einer lang
+anhaltenden öffentlichen Diskussion.
+
+
 
 
 \end{document}
