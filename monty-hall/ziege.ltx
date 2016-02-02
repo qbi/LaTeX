@@ -28,6 +28,9 @@
 %% Formatierung und Indexierung von Personnamen
 \usepackage[alwaysformat]{nameauth}
 
+%% Gebrochene Zahlen setzen
+\usepackage{xfrac}
+
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{xspace}
@@ -45,6 +48,7 @@
   \<Hall & Monty & Hall & >
   \<Savant & Marylin & vos Savant & >
   \<Selvin & Steve & selvin & >
+  \<Whitaker & Craig F. & Whitaker & >
 \end{nameauth}
 
 
@@ -78,6 +82,10 @@ Musterstraße 123\\
 % \setcounter{page}{1}
 % \pagenumbering{arabic}
 
+\part{Einleitung}
+\label{part:einleitung}
+
+
 Das \emph{Ziegenproblem}, \emph{Drei-Türen-Problem},
 \emph{Monty-Hall-Problem} oder \emph{Monty-Hall-Dilemma} ist eine
 Aufgabe mit Bezug zur Wahrscheinlichkeitstheorie. Die Aufgabenstellung
@@ -93,7 +101,30 @@ menschliche Verstand zu Trugschlüssen neigt, wenn es um das Bestimmen
 von Wahrscheinlichkeiten geht, und ist Gegenstand einer lang
 anhaltenden öffentlichen Diskussion.
 
+Die Aufgabenstellung selbst geht auf den Biostatistiker \Selvin{}
+zurück, der sie als Leserbrief im American Statistician 1975
+veröffentlichte. Weltweit bekannt und zum Gegenstand einer
+kontroversen Debatte wurde das Problem aber erst durch seine
+Publikation in \Savant s Kolumne \enquote{Ask Marilyn} im Magazin
+Parade im Jahr 1990. Die dortige Version beruht auf einem Leserbrief,
+den \Savant{} von \Whitaker{} aus Columbia, Maryland, erhalten hatte:
+\begin{quotation}
+  Nehmen Sie an, Sie wären in einer Spielshow und hätten die Wahl
+  zwischen drei Toren. Hinter einem der Tore ist ein Auto, hinter den
+  anderen sind Ziegen. Sie wählen ein Tor, sagen wir, Tor Nummer~1,
+  und der Showmaster, der weiß, was hinter den Toren ist, öffnet ein
+  anderes Tor, sagen wir, Nummer~3, hinter dem eine Ziege steht. Er
+  fragt Sie nun: \enquote{Möchten Sie das Tor Nummer~2?} Ist es von
+  Vorteil, die Wahl des Tores zu ändern?
+\end{quotation}
 
-
-
+Die Fragestellung in dieser Form ist unterbestimmt, die richtige
+Antwort hängt davon ab, welche Zusatzannahmen getroffen
+werden. \Savant{} gab die Antwort \enquote{Ja, Sie sollten
+  wechseln. Das zuerst gewählte Tor hat die Gewinnchance von \sfrac{1}{3}, aber
+  das zweite Tor hat eine Gewinnchance von \sfrac{2}{3}}. \Savant s Antwort
+ist, obwohl unter Zusatzannahmen richtig, auch unter diesen
+Zusatzannahmen für viele Menschen kontraintuitiv. In der Folge erhielt
+\Savant{} nach ihrer eigenen Schätzung zehntausend Briefe, die ganz
+überwiegend die Richtigkeit ihrer Antwort bezweifelten.
 \end{document}
