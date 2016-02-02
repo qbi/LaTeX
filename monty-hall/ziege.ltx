@@ -1,0 +1,73 @@
+% Warnung, falls alte Pakete, Befehle etc.(siehe l2tabu) benutzt werden
+\RequirePackage[l2tabu, orthodox]{nag}
+
+% Fehler im LaTeX2e-Kern beheben
+\RequirePackage{fixltx2e}
+
+\documentclass[ngerman]{scrreprt}
+
+
+%% Kodierung der Eingabe, Umlaute können als solche eingegeben werden
+\usepackage[utf8]{inputenc}
+
+%% Kodierung der Schriften, bessere Ausgabe von Umlauten etc.
+\usepackage[T1]{fontenc}
+
+%% Eindeutschung des Inhaltsverzeichnisses und weiterer Angaben,
+%% korrekte Worttrennung
+\usepackage[ngerman]{babel}
+
+%% Satz von Zitatzeichen
+%% kann ggf. weiter eingestellt werden
+%% Beispiel \usepackage[autostyle,german=guillemets]{csquotes}
+\usepackage{csquotes}
+
+%% Verbesserung der typografischen Qualität des Dokuments
+\usepackage{microtype}
+
+
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage[sc]{mathpazo}
+\usepackage[intlimits,leqno]{amsmath}
+\usepackage[all,warning]{onlyamsmath}
+\usepackage[euro]{isonums}
+\usepackage{paralist}
+\usepackage{ellipsis}
+\usepackage{todonotes}
+
+\usepackage[colorlinks,breaklinks]{hyperref}
+
+\begin{document}
+\titlehead{Universität of Foo Bar\\
+Musterstraße 123\\
+82641~Discworld}
+\subject{Wahrscheinliche Texte}
+\author{Jens Kubieziel}
+\title{Das Ziegenproblem}
+\subtitle{Eine Wikipedia-Seite in \LaTeX{}}
+\date{\today}
+\publishers{\LaTeX{} course}
+%\titlepic{\includegraphics[width=.4\textwidth]{Monty-open-door}}
+
+
+% \setcounter{page}{1}
+% \pagenumbering{roman}
+\maketitle
+% \begin{abstract}
+%   This small article covers the so called Monty Hall problem. It was
+%   produced from an article from the english Wikipedia.
+% \end{abstract}
+
+
+\tableofcontents{}
+\newpage{}
+\listoffigures{}
+\listoftables{}
+\newpage{}
+% \setcounter{page}{1}
+% \pagenumbering{arabic}
+
+
+\end{document}
