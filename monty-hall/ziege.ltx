@@ -50,12 +50,24 @@
 %% Tabellen im Querformat setzen
 \usepackage{pdflscape}
 
-\usepackage{lmodern}
+%% Text um Tabellen oder Bilder fließen lassen
+%\usepackage{wrapfig}
+
+%% Tabelle mit variablen Spaltenbreiten
+\usepackage{tabularx}
+
+%% Unterstützung für Farben
+\usepackage[table]{xcolor}
+
+%% Benutzung von Grafiken
 \usepackage{graphicx}
+
+\usepackage{lmodern}
+
 \usepackage{xspace}
 \usepackage[sc]{mathpazo}
 \usepackage[intlimits,leqno]{amsmath}
-\usepackage[all,warning]{onlyamsmath}
+%\usepackage[all,warning]{onlyamsmath}
 \usepackage[euro]{isonums}
 \usepackage{paralist}
 \usepackage{ellipsis}
@@ -282,6 +294,74 @@ gleich wahrscheinlich betrachtet werden:
   \end{table}
 \end{landscape}
 
+Drei von neun Kandidaten gewinnen, wenn sie bei ihrer ersten Wahl
+bleiben, während sechs von neun Kandidaten durch Wechseln das Auto
+bekommen. Ein Kandidat hat durch Wechseln also eine durchschnittliche
+Gewinnchance von $p = \sfrac23$.
+
+Diese Lösung kann auch grafisch veranschaulicht werden[6][7]. In den
+Bildern der \autoref{tab:bedwahrsch} in \autoref{part:bedwahrsch} ist
+das gewählte Tor \emph{willkürlich} als das linke Tor dargestellt.
+
+\appendix{}
+
+\part{Tabelle mit bedingten Wahrscheinlichkeiten}
+\label{part:bedwahrsch}
+
+
+\begin{landscape}
+  \begin{table}[htb]
+    \centering
+  \begin{tabularx}{\linewidth}{|X|X|X|X|}
+    \toprule
+    \textbf{Car hidden behind Door 3
+      (on average, 100 cases out of 300)} &
+    \multicolumn{2}{c|}{\textbf{Car hidden behind Door 1
+      (on average, 100 cases out of 300)}} & 
+    \textbf{Car hidden behind Door 2
+      (on average, 100 cases out of 300)}\\
+    \tabuphantomline
+    \midrule
+    \multicolumn{4}{|c|}{\textbf{Player initially picks Door 1, 300
+        repetitions}}\\
+    \tabuphantomline
+    \midrule
+    \includegraphics[width=.2\columnwidth]{Monty-RightCar} &
+    \multicolumn{2}{c|}{\includegraphics[width=.2\columnwidth]{Monty-LeftCar}} &
+    \includegraphics[width=.2\columnwidth]{Monty-MiddleCar}\\
+    \tabuphantomline
+    \midrule
+    \cellcolor{gray!50}Host must open Door 2 (100 cases) &
+    \cellcolor{gray!50}Host randomly opens Door 2 (on average, 50
+    cases) & Host randomly opens Door 3 (on average, 50 cases) & Host
+    must open Door 3 (100 cases)\\
+    \midrule
+    \cellcolor{gray!50}\includegraphics[width=.2\columnwidth]{Monty-RightCarSwitch}
+    & \cellcolor{gray!50}\includegraphics[width=.2\columnwidth]{Monty-LeftCarSwitch2}
+    & \includegraphics[width=.2\columnwidth]{Monty-LeftCarSwitch1}
+    & \includegraphics[width=.2\columnwidth]{Monty-MiddleCarSwitch}\\
+    \midrule
+    \cellcolor{gray!50}Probability \sfrac{1}{3} (100 out of 300) &
+    \cellcolor{gray!50}Probability
+    \sfrac{1}{6} (50 out of 300) & Probability \sfrac{1}{6} (50 out of
+    300) & Probability \sfrac{1}{3} (100 out of 300)\\
+    \midrule
+    \cellcolor{gray!50}Switching wins & \cellcolor{gray!50}Switching loses & Switching loses & Switching
+    wins\\
+    \midrule
+    \multicolumn{2}{|c|}{\cellcolor{gray!50}On those occasions when the
+      host opens Door 2,} & \multicolumn{2}{c|}{On those occasions when
+      the host opens Door 3,}\\
+    \multicolumn{2}{|c|}{\cellcolor{gray!50}switching wins twice as
+      often as staying (100 cases versus 50)} &
+    \multicolumn{2}{c}{switching wins twice as often as staying
+      (100 cases versus 50)}\\
+    \bottomrule
+  \end{tabularx}
+\caption{Darstellung mit bedingten Wahrscheinlichkeiten}
+\label{tab:bedwahrsch}
+\end{table}
+\end{landscape}
 
 \printbibliography
 \end{document}
