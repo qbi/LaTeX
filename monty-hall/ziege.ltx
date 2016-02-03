@@ -42,6 +42,14 @@
 %% Satz des Euro-Zeichens
 \usepackage{eurosym}
 
+\usepackage{array}
+
+%% Verbesserte vertikale Linien in Tabellen
+\usepackage{booktabs}
+
+%% Tabellen im Querformat setzen
+\usepackage{pdflscape}
+
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{xspace}
@@ -204,7 +212,7 @@ entscheiden. Auf diese Weise kann sie sicherstellen, dass ihre
 Gewinnwahrscheinlichkeit unabhängig von den Absichten des Moderators
 genau \sfrac{1}{2} beträgt.
 
-\part{Antwort von \LSavant}
+\part{Antwort von vos Savant}
 \label{part:antwortsavant}
 
 Durch die Antwort von \Savant{} auf den Leserbrief erzielte
@@ -221,8 +229,8 @@ lautete:
   das eine Tor mit dem Preis immer vermeidet, alle Tore bis auf Tor
   Nummer 777777. Sie würden doch sofort zu diesem Tor wechseln, oder
   nicht?
-\end{quotation}\todo{Nummer formatieren}
-
+\end{quotation}
+%\todo{Nummer formatieren}
 
 \LSavant{} berücksichtigt dabei nicht eine bestimmte
 Motivation des Moderators; es ist laut Leserbrief keineswegs
@@ -245,14 +253,35 @@ als beliebig und die Verteilung von Auto und Ziegen hinter den Toren
 als zufällig angesehen wird, darf jede der neun Möglichkeiten als
 gleich wahrscheinlich betrachtet werden:
 
-\begin{table}[htb]
-  \centering
-  \begin{tabular}{c|c|c|c|c|c}
-    &&&&&
-  \end{tabular}
-  \caption{Betrachtung der Möglichkeiten}
-  \label{tab:moeglichkeiten}
-\end{table}
+\begin{landscape}
+  \begin{table}[htb]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+      \toprule
+      Tor 1 gewählt & Tor 2 & Tor 3 & Moderator öffnet \dots{} & Ergebnis beim Wechseln & Ergebnis beim Behalten\\
+      \midrule
+      Auto & Ziege & Ziege & Tor 2 oder 3 & Ziege & \emph{Auto}\\
+      Ziege & Auto & Ziege & Tor 3 & \emph{Auto} & Ziege\\
+      Ziege & Ziege & Auto & Tor 2 & \emph{Auto} & Ziege\\
+      \midrule
+      Tor 1  & Tor 2 gewählt & Tor 3 & Moderator öffnet \dots{} & Ergebnis beim Wechseln & Ergebnis beim Behalten\\
+      \midrule
+      Auto & Ziege & Ziege & Tor 3 &  \emph{Auto} & Ziege\\
+      Ziege & Auto & Ziege & Tor 1 oder 3 & Ziege & \emph{Auto}\\
+      Ziege & Ziege & Auto & Tor 1 & \emph{Auto} & Ziege\\
+      \midrule
+      Tor 1 & Tor 2 & Tor 3 gewählt & Moderator öffnet \dots{} & Ergebnis beim Wechseln & Ergebnis beim Behalten\\
+      \midrule
+      Auto & Ziege & Ziege & Tor 2 & \emph{Auto} & Ziege\\
+      Ziege & Auto & Ziege & Tor 1 & \emph{Auto} & Ziege\\
+      Ziege & Ziege & Auto & Tor 1 oder 2 & Ziege & \emph{Auto}\\
+      \bottomrule
+    \end{tabular}
+    \caption{Betrachtung der Möglichkeiten}
+    \label{tab:moeglichkeiten}
+  \end{table}
+\end{landscape}
+
 
 \printbibliography
 \end{document}
