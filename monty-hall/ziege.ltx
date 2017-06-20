@@ -1,0 +1,426 @@
+% Warnung, falls alte Pakete, Befehle etc.(siehe l2tabu) benutzt werden
+\RequirePackage[l2tabu, orthodox]{nag}
+
+%% Fehler im LaTeX2e-Kern beheben
+%% LaTeX-Version nach 2015 haben die Fixes eingebaut, Paket wird dann unnötig
+%\RequirePackage{fixltx2e}
+
+\documentclass[ngerman]{scrreprt}
+
+
+%% Kodierung der Eingabe, Umlaute können als solche eingegeben werden
+\usepackage[utf8]{inputenc}
+
+%% Kodierung der Schriften, bessere Ausgabe von Umlauten etc.
+\usepackage[T1]{fontenc}
+
+%% Eindeutschung des Inhaltsverzeichnisses und weiterer Angaben,
+%% korrekte Worttrennung
+\usepackage[ngerman]{babel}
+
+%% Satz von Zitatzeichen
+%% kann ggf. weiter eingestellt werden
+%% Beispiel \usepackage[autostyle,german=guillemets]{csquotes}
+\usepackage{csquotes}
+
+%% Verbesserung der typografischen Qualität des Dokuments
+\usepackage{microtype}
+
+%% Formatierung und Indexierung von Personnamen
+\usepackage[alwaysformat]{nameauth}
+
+%% Gebrochene Zahlen setzen
+\usepackage{xfrac}
+
+%% Einbinden der Bibliogrpahy
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{monty-hall}
+
+%% Satz von SI-Einheiten
+\usepackage[binary-units]{siunitx}
+\sisetup{unit-mode = text}
+
+%% Satz des Euro-Zeichens
+\usepackage{eurosym}
+
+\usepackage{array}
+
+%% Verbesserte vertikale Linien in Tabellen
+\usepackage{booktabs}
+
+%% Tabellen im Querformat setzen
+\usepackage{pdflscape}
+
+%% Text um Tabellen oder Bilder fließen lassen
+%\usepackage{wrapfig}
+
+%% Tabelle mit variablen Spaltenbreiten
+\usepackage{tabularx}
+
+%% Unterstützung für Farben
+\usepackage[table]{xcolor}
+
+%% Benutzung von Grafiken
+\usepackage{graphicx}
+
+\usepackage{lmodern}
+
+\usepackage{xspace}
+\usepackage[sc]{mathpazo}
+\usepackage[intlimits,leqno]{amsmath}
+%\usepackage[all,warning]{onlyamsmath}
+\usepackage[euro]{isonums}
+\usepackage{paralist}
+\usepackage{ellipsis}
+\usepackage{todonotes}
+
+\usepackage[colorlinks,breaklinks]{hyperref}
+
+\begin{nameauth}
+  \<Hall & Monty & Hall & >
+  \<Savant & Marylin & vos Savant & >
+  \<Selvin & Steve & selvin & >
+  \<Whitaker & Craig F. & Whitaker & >
+\end{nameauth}
+
+
+\begin{document}
+\titlehead{Universität of Foo Bar\\
+Musterstraße 123\\
+82641~Discworld}
+\subject{Wahrscheinliche Texte}
+\author{Jens Kubieziel}
+\title{Das Ziegenproblem}
+\subtitle{Eine Wikipedia-Seite in \LaTeX{}}
+\date{\today}
+\publishers{\LaTeX{} course}
+%\titlepic{\includegraphics[width=.4\textwidth]{Monty-open-door}}
+
+
+% \setcounter{page}{1}
+% \pagenumbering{roman}
+\maketitle
+% \begin{abstract}
+%   This small article covers the so called Monty Hall problem. It was
+%   produced from an article from the english Wikipedia.
+% \end{abstract}
+
+
+\tableofcontents{}
+\newpage{}
+\listoffigures{}
+\listoftables{}
+\newpage{}
+% \setcounter{page}{1}
+% \pagenumbering{arabic}
+
+\chapter{Einleitung}
+\label{chapter:einleitung}
+
+
+Das \emph{Ziegenproblem}, \emph{Drei-Türen-Problem},
+\emph{Monty-Hall-Problem} oder \emph{Monty-Hall-Dilemma} ist eine
+Aufgabe mit Bezug zur Wahrscheinlichkeitstheorie. Die Aufgabenstellung
+ist lose der Spielshow \textit{Let’s Make a Deal} nachempfunden,
+welche im deutschen Sprachraum in der Variante \textit{Geh aufs
+  Ganze!} bekannt wurde. Die Bezeichnungen beziehen sich auf \Hall{},
+den Moderator von \textit{Let’s Make a Deal}, oder auf die Ziegen, die
+in einer bekannten Problemformulierung neben dem richtigen Preis,
+einem Auto, als Trostpreise zu gewinnen sind.
+
+Das Ziegenproblem wird oft als Beispiel dafür herangezogen, dass der
+menschliche Verstand zu Trugschlüssen neigt, wenn es um das Bestimmen
+von Wahrscheinlichkeiten geht, und ist Gegenstand einer lang
+anhaltenden öffentlichen Diskussion.
+
+Die Aufgabenstellung selbst geht auf den Biostatistiker \Selvin{}
+zurück, der sie als Leserbrief im American Statistician 1975
+veröffentlichte. Weltweit bekannt und zum Gegenstand einer
+kontroversen Debatte wurde das Problem aber erst durch seine
+Publikation in \Savant s Kolumne \enquote{Ask Marilyn} im Magazin
+Parade im Jahr 1990. Die dortige Version beruht auf einem Leserbrief,
+den \Savant{} von \Whitaker{} aus Columbia, Maryland, erhalten hatte:\autocite{rosenhouse09}
+\begin{quotation}
+  Nehmen Sie an, Sie wären in einer Spielshow und hätten die Wahl
+  zwischen drei Toren. Hinter einem der Tore ist ein Auto, hinter den
+  anderen sind Ziegen. Sie wählen ein Tor, sagen wir, Tor Nummer~1,
+  und der Showmaster, der weiß, was hinter den Toren ist, öffnet ein
+  anderes Tor, sagen wir, Nummer~3, hinter dem eine Ziege steht. Er
+  fragt Sie nun: \enquote{Möchten Sie das Tor Nummer~2?} Ist es von
+  Vorteil, die Wahl des Tores zu ändern?\autocite{savant1990}
+\end{quotation}
+
+Die Fragestellung in dieser Form ist unterbestimmt, die richtige
+Antwort hängt davon ab, welche Zusatzannahmen getroffen
+werden. \Savant{} gab die Antwort \enquote{Ja, Sie sollten
+  wechseln. Das zuerst gewählte Tor hat die Gewinnchance von \sfrac{1}{3}, aber
+  das zweite Tor hat eine Gewinnchance von \sfrac{2}{3}}. \Savant s Antwort
+ist, obwohl unter Zusatzannahmen richtig, auch unter diesen
+Zusatzannahmen für viele Menschen kontraintuitiv. In der Folge erhielt
+\Savant{} nach ihrer eigenen Schätzung zehntausend Briefe, die ganz
+überwiegend die Richtigkeit ihrer Antwort bezweifelten.\autocite{tierney91}
+
+\chapter{Die erfahrungsbezogene Antwort}
+\label{chapter:erfantwort}
+
+Wenn man die Frage Personen stellt, die sich noch nicht mit dem
+Problem beschäftigt hatten, vermuten diese häufig, dass die
+Gewinnchancen für die Tore~1 und 2 gleich hoch seien. Als Grund dafür
+wird oft angegeben, dass man ja nichts über die Motivation des
+Showmasters wisse, das Tor~3 mit einer Ziege dahinter zu öffnen und
+einen Wechsel anzubieten. Es greife daher das Indifferenzprinzip.
+
+Die Intuition beim Verständnis des Leserbriefs geht davon aus, dass es
+sich bei der Problemstellung um die Beschreibung einer einmaligen
+Spielsituation handelt. Außerdem zeugt die Antwort von einer gewissen
+Vertrautheit mit Spielshows wie Geh aufs Ganze, in denen der
+Showmaster (Moderator) eine aktive und unberechenbare Rolle spielt. Im
+Gegensatz zu den Problemvarianten, in denen der Moderator auf einen an
+fixe Verhaltensregeln gebundenen \enquote{Handlanger} reduziert wird, darf
+realistischerweise angenommen werden, dass er völlig frei in seinen
+Entscheidungen ist (\LHall: \enquote{Ich bin der Hausherr!}). Diese
+Freiheit kann anhand einiger Beispiele illustriert werden, wobei vor
+jedem Spiel Auto und Ziegen hinter den drei Toren zufällig neu
+verteilt wurden. Weil die Kandidaten diese Spielshow, für die sie sich
+als Teilnehmer beworben haben, kennen, ist ihnen die Unberechenbarkeit
+des Moderators natürlich bewusst.
+\begin{enumerate}[Sp{i}el~1]
+\item Kandidat Alfred wählt Tor 1, der Moderator öffnet das Tor 1 mit
+  einer Ziege dahinter; Alfred verliert.
+\item Kandidat Bertram wählt Tor 1, der Moderator öffnet Tor 2 mit
+  einer Ziege dahinter und bietet Bertram an, seine Wahl zu
+  ändern. Bertram möchte wechseln, aber der Moderator öffnet kein Tor,
+  sondern bietet \SI{5000}{\euro} dafür, dass Bertram bei seiner ersten
+  Wahl bleibt. Dieser ändert seine Wechsel-Entscheidung nicht, und der
+  Moderator öffnet Tor 3 mit einer Ziege dahinter; Bertram verliert.
+\item Kandidatin Conny wählt Tor 1, der Moderator öffnet kein Tor,
+  sondern bietet der Kandidatin \SI{1000}{\euro} dafür, dass sie auf
+  das Öffnen des Tors verzichtet; Conny nimmt das Geld und gewinnt
+  \SI{1000}{\euro}.
+\item Kandidatin Doris wählt Tor 1, der Moderator öffnet daraufhin Tor
+  3 mit einer Ziege dahinter und bietet Doris an, ihre Wahl zu
+  überdenken \dots
+\end{enumerate}
+
+Angesichts der verschiedenen Verhaltensmöglichkeiten des Moderators
+sollte Doris ihre Gewinnchancen sorgfältig abwägen. Wenn sie glaubt,
+dass der Moderator nett zu ihr sei und sie von ihrer ersten falschen
+Wahl abbringen möchte, dann sollte sie wechseln. Wenn sie allerdings
+meint, dass ihr der Moderator nicht gut gesinnt sei und sie nur von
+ihrer ersten, richtigen Wahl ablenken möchte, dann sollte sie bei
+Tor~1 bleiben. Wenn Doris den Moderator nicht einschätzen kann -- auch
+im Leserbrief werden keine entsprechenden Hinweise gegeben --, hat sie
+keine Möglichkeit, ihre Gewinnchance korrekt zu
+berechnen. Insbesondere kann sie sich nach dem Eingreifen des
+Moderators nicht mehr auf das Indifferenzprinzip berufen, und die
+Antwort auf die Frage \enquote{Ist es von Vorteil, die Wahl des Tores
+  zu ändern?} lautet in ihrem Fall also: \enquote{Nicht unbedingt}.
+
+Obwohl die Frage des Leserbriefs damit bereits beantwortet ist, wurde
+der Vorschlag gemacht, Doris bei ihrer Entscheidung zu unterstützen
+und ihr eine echte 50:50-Chance auf den Gewinn zu verschaffen. Dazu
+wird angenommen, dass sie die Möglichkeit hat, sich nach dem Wurf
+einer fairen Münze für eines der beiden verbleibenden Tore zu
+entscheiden. Auf diese Weise kann sie sicherstellen, dass ihre
+Gewinnwahrscheinlichkeit unabhängig von den Absichten des Moderators
+genau \sfrac{1}{2} beträgt.
+
+\chapter{Antwort von vos Savant}
+\label{chapter:antwortsavant}
+
+Durch die Antwort von \Savant{} auf den Leserbrief erzielte
+das Problem international auch außerhalb der Fachwelt hohe
+Aufmerksamkeit und führte zu heftigen Kontroversen. Ihre Antwort
+lautete:
+
+\begin{quotation}
+  Ja, Sie sollten wechseln. Das zuerst gewählte Tor hat die
+  Gewinnchance von 1/3, aber das zweite Tor hat eine Gewinnchance von
+  2/3. Hier ist ein guter Weg, sich das Geschehen vorzustellen. Nehmen
+  Sie an, es gäbe 1 Million Tore und Sie wählen Tor Nummer 1. Dann
+  öffnet der Moderator, der weiß, was hinter den Toren ist, und der
+  das eine Tor mit dem Preis immer vermeidet, alle Tore bis auf Tor
+  Nummer 777777. Sie würden doch sofort zu diesem Tor wechseln, oder
+  nicht?
+\end{quotation}
+%\todo{Nummer formatieren}
+
+\LSavant{} berücksichtigt dabei nicht eine bestimmte
+Motivation des Moderators; es ist laut Leserbrief keineswegs
+ausgeschlossen, dass der Moderator nur deswegen ein Ziegentor öffnet,
+um den Kandidaten von seiner ersten, erfolgreichen Wahl
+abzulenken. Stattdessen fasst \Savant{} den Leserbrief offensichtlich
+so auf, dass die Spielshow immer wieder nach demselben Muster abläuft:
+
+\textit{Verlauf der Spielshow}: Der jeweilige Kandidat wählt ein Tor, der
+Moderator öffnet daraufhin immer ein anderes Tor mit einer Ziege
+dahinter und lässt danach dem Kandidaten noch einmal die Wahl zwischen
+den beiden noch geschlossenen Toren. Der Kandidat erhält das Auto,
+wenn es sich hinter dem von ihm zuletzt gewählten Tor befindet.
+
+Somit erhält sie als Lösung die durchschnittliche
+Gewinnwahrscheinlichkeit aller möglichen Kombinationen von Toren, die
+von den jeweiligen Kandidaten gewählt werden und vom Moderator
+daraufhin geöffnet werden können. Weil die erste Wahl eines Kandidaten
+als beliebig und die Verteilung von Auto und Ziegen hinter den Toren
+als zufällig angesehen wird, darf jede der neun Möglichkeiten als
+gleich wahrscheinlich betrachtet werden:
+
+\begin{landscape}
+  \begin{table}[htb]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+      \toprule
+      Tor 1 gewählt & Tor 2 & Tor 3 & Moderator öffnet \dots{} & Ergebnis beim Wechseln & Ergebnis beim Behalten\\
+      \midrule
+      Auto & Ziege & Ziege & Tor 2 oder 3 & Ziege & \emph{Auto}\\
+      Ziege & Auto & Ziege & Tor 3 & \emph{Auto} & Ziege\\
+      Ziege & Ziege & Auto & Tor 2 & \emph{Auto} & Ziege\\
+      \midrule
+      Tor 1  & Tor 2 gewählt & Tor 3 & Moderator öffnet \dots{} & Ergebnis beim Wechseln & Ergebnis beim Behalten\\
+      \midrule
+      Auto & Ziege & Ziege & Tor 3 &  \emph{Auto} & Ziege\\
+      Ziege & Auto & Ziege & Tor 1 oder 3 & Ziege & \emph{Auto}\\
+      Ziege & Ziege & Auto & Tor 1 & \emph{Auto} & Ziege\\
+      \midrule
+      Tor 1 & Tor 2 & Tor 3 gewählt & Moderator öffnet \dots{} & Ergebnis beim Wechseln & Ergebnis beim Behalten\\
+      \midrule
+      Auto & Ziege & Ziege & Tor 2 & \emph{Auto} & Ziege\\
+      Ziege & Auto & Ziege & Tor 1 & \emph{Auto} & Ziege\\
+      Ziege & Ziege & Auto & Tor 1 oder 2 & Ziege & \emph{Auto}\\
+      \bottomrule
+    \end{tabular}
+    \caption{Betrachtung der Möglichkeiten}
+    \label{tab:moeglichkeiten}
+  \end{table}
+\end{landscape}
+
+Drei von neun Kandidaten gewinnen, wenn sie bei ihrer ersten Wahl
+bleiben, während sechs von neun Kandidaten durch Wechseln das Auto
+bekommen. Ein Kandidat hat durch Wechseln also eine durchschnittliche
+Gewinnchance von $p = \sfrac23$.
+
+Diese Lösung kann auch grafisch veranschaulicht werden\cite{bewersdorf12}\cite{behrends06}. In den
+Bildern der \autoref{tab:bedwahrsch} in \autoref{chapter:bedwahrsch} ist
+das gewählte Tor \emph{willkürlich} als das linke Tor dargestellt.
+
+\section{Strategische Lösung}
+\label{sec:stratloes}
+
+Wegen der Auffassung von \Savant{} und unter Berücksichtigung der von
+ihr vorgeschlagenen Wechselstrategie lässt sich eine alternative Sicht
+des Ablaufs der Spielshow formulieren:
+
+\begin{quote}
+  Der jeweilige Kandidat darf zwei frei gewählte Tore bestimmen, die
+  der Moderator öffnen muss, und jener erhält das Auto, falls es sich
+  hinter einem dieser beiden Tore befindet.
+\end{quote}
+
+
+Beispielsweise möchte ein Kandidat Tor 2 und Tor 3 öffnen lassen. Er
+wählt also Tor 1, das verschlossen bleibt, und wechselt dann zu Tor 2,
+wenn der Moderator Tor 3 geöffnet hat, oder umgekehrt. Der Kandidat
+hat damit offensichtlich eine durchschnittliche Gewinnchance von
+$p = \sfrac23$. Demnach wäre es für einen Kandidaten, der mehrmals an
+dieser Spielshow teilnehmen dürfte, von Vorteil, die Wahl des Tors
+immer zu ändern.
+
+\chapter{Kontroversen}
+\label{chap:kontroversen}
+
+Es sind vor allem die folgenden Hauptargumente, die zu Zweifeln an
+\Savant s Antwort führen. Während das erste Argument nicht stichhaltig
+ist und auf falsch angewandter Wahrscheinlichkeitstheorie basiert,
+verdeutlichen die weiteren Argumente, dass das Originalproblem eine
+Vielzahl von Interpretationen zulässt:
+\begin{itemize}
+\item Unter der Voraussetzung, dass der Showmaster den im nächsten
+  Abschnitt ausgeführten Spielregeln folge, sei ein Wechsel des Tores
+  nicht schlecht. Die Gewinnchance für das zweite Tor sei aber niemals
+  2/3, sondern generell nur 1/2, weil nach dem Öffnen eines Tores mit
+  einer Ziege dahinter nur noch zwei geschlossene Tore zur Auswahl
+  stünden. Die Chancen seien deshalb auf beide Tore immer
+  gleichverteilt.\todo{Brüche anpassen}
+\item Die Fragestellung im Leserbrief enthält keinerlei Hinweise
+  darauf, dass der Showmaster einer bestimmten Verhaltensregel
+  folgt. Solch eine Regel ließe sich nur unter der Annahme ableiten,
+  dass das Spiel mehrmals unter den gleichen Bedingungen wiederholt
+  würde: \emph{Sie wählen ein beliebiges Tor, der Showmaster öffnet ein
+  anderes Tor, hinter dem eine Ziege steht, und Sie dürfen die Wahl
+  Ihres Tores ändern}. Von solch einer Wiederholung des Spiels ist aber
+  im Leserbrief keine Rede. Also basiert vos Savants Antwort auf
+  zusätzlichen Annahmen, die sich in dieser Form nicht zwingend aus
+  dem Leserbrief ergeben.[8]
+\item Marilyn vos Savants Interpretation bezieht sich nicht auf die in
+  der Fragestellung konkret benannten Tore, und damit lässt sie
+  möglicherweise vorhandene Präferenzen des Moderators bzgl. einzelner
+  Tore außer Acht. Deshalb erhält sie als Gewinnwahrscheinlichkeit 2/3
+  durch Wechseln, die nicht bei jedem Moderatorverhalten gültig
+  ist. Dementsprechend bildet auch die obige Tabelle, welche nur
+  Durchschnittswahrscheinlichkeiten veranschaulicht, solche
+  Präferenzen nicht korrekt ab.
+\end{itemize}
+Das erste Argument wird durch den ausgeglichenen Moderator widerlegt,
+das zweite wird anhand der erfahrungsbezogenen Antwort und das dritte
+anhand des faulen Moderators ausgeführt.
+
+\appendix{}
+
+\chapter{Tabelle mit bedingten Wahrscheinlichkeiten}
+\label{chapter:bedwahrsch}
+
+
+\begin{landscape}
+  \begin{table}[htb]
+    \centering
+  \begin{tabularx}{\linewidth}{|X|X|X|X|}
+    \toprule
+    \textbf{Car hidden behind Door 3
+      (on average, 100 cases out of 300)} &
+    \multicolumn{2}{c|}{\textbf{Car hidden behind Door 1
+      (on average, 100 cases out of 300)}} & 
+    \textbf{Car hidden behind Door 2
+      (on average, 100 cases out of 300)}\\
+    \midrule
+    \multicolumn{4}{|c|}{\textbf{Player initially picks Door 1, 300
+        repetitions}}\\
+    \midrule
+    \includegraphics[width=.2\columnwidth]{Monty-RightCar} &
+    \multicolumn{2}{c|}{\includegraphics[width=.2\columnwidth]{Monty-LeftCar}} &
+    \includegraphics[width=.2\columnwidth]{Monty-MiddleCar}\\
+    \midrule
+    \cellcolor{gray!50}Host must open Door 2 (100 cases) &
+    \cellcolor{gray!50}Host randomly opens Door 2 (on average, 50
+    cases) & Host randomly opens Door 3 (on average, 50 cases) & Host
+    must open Door 3 (100 cases)\\
+    \midrule
+    \cellcolor{gray!50}\includegraphics[width=.2\columnwidth]{Monty-RightCarSwitch}
+    & \cellcolor{gray!50}\includegraphics[width=.2\columnwidth]{Monty-LeftCarSwitch2}
+    & \includegraphics[width=.2\columnwidth]{Monty-LeftCarSwitch1}
+    & \includegraphics[width=.2\columnwidth]{Monty-MiddleCarSwitch}\\
+    \midrule
+    \cellcolor{gray!50}Probability \sfrac{1}{3} (100 out of 300) &
+    \cellcolor{gray!50}Probability
+    \sfrac{1}{6} (50 out of 300) & Probability \sfrac{1}{6} (50 out of
+    300) & Probability \sfrac{1}{3} (100 out of 300)\\
+    \midrule
+    \cellcolor{gray!50}Switching wins & \cellcolor{gray!50}Switching loses & Switching loses & Switching
+    wins\\
+    \midrule
+    \multicolumn{2}{|c|}{\cellcolor{gray!50}On those occasions when the
+      host opens Door 2,} & \multicolumn{2}{c|}{On those occasions when
+      the host opens Door 3,}\\
+    \multicolumn{2}{|c|}{\cellcolor{gray!50}switching wins twice as
+      often as staying (100 cases versus 50)} &
+    \multicolumn{2}{c}{switching wins twice as often as staying
+      (100 cases versus 50)}\\
+    \bottomrule
+  \end{tabularx}
+\caption{Darstellung mit bedingten Wahrscheinlichkeiten}
+\label{tab:bedwahrsch}
+\end{table}
+\end{landscape}
+
+\printbibliography
+\end{document}
