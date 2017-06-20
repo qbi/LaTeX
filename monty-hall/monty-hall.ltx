@@ -101,6 +101,9 @@
 %% Support for colors
 \usepackage[table]{xcolor}
 
+\usepackage[backend=biber,natbib=true,style=authoryear-comp,hyperref=true,]{biblatex}
+\addbibresource{monty-hall.bib}
+
 %% end of preamble
 
 %% start of document contents
@@ -1593,8 +1596,6 @@ The problem continues to appear in many venues:
 \end{landscape}
 
 
-
-\bibliographystyle{apalike}
-\bibliography{monty-hall}
+\printbibliography
 
 \end{document}
