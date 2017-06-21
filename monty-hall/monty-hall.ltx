@@ -101,7 +101,12 @@
 %% Support for colors
 \usepackage[table]{xcolor}
 
+% BibLaTeX manages the bibliography data. This means one can set the
+% style how things are cited and how bibliography looks like.  A good
+% guide to start with BibLaTeX is at
+% <URL:http://dag.at.ifi.uio.no/public/doc/biblatex-guide.pdf>
 \usepackage[backend=biber,natbib=true,style=authoryear-comp,hyperref=true,]{biblatex}
+% This add information where the BibTeX file is located.
 \addbibresource{monty-hall.bib}
 
 %% end of preamble
