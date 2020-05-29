@@ -113,7 +113,11 @@
 %% - citestyle: Style of the citation  (same as above)
 %% - sorting: Sort by (n)ame, (t)itle, (y)ear, (a)lphabetic
 
-\usepackage[backend=biber,natbib=true,style=authoryear-comp,bibstyle=authortitle,hyperref=true,sorting=anyt]{biblatex}
+% A good guide to start with BibLaTeX is at
+% <URL:http://dag.at.ifi.uio.no/public/doc/biblatex-guide.pdf>
+\usepackage[backend=biber,natbib=true,style=authoryear-comp,hyperref=true,]{biblatex}
+
+% This add information where the BibTeX file is located.
 \addbibresource{monty-hall.bib}
 
 %% end of preamble
