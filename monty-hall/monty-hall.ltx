@@ -101,7 +101,19 @@
 %% Support for colors
 \usepackage[table]{xcolor}
 
-\usepackage[backend=biber,natbib=true,style=authoryear-comp,hyperref=true,]{biblatex}
+%% Employ a bibliography
+%% The package biblatex manages the bibliography and has many options.
+%% It is highly recommended to have a look at the documentation:
+%% https://ctan.org/pkg/biblatex
+%% The package has several options which deal with the citation style, styling
+%% of the bibliography and other things
+%% - style: Style of citation and bibliography (numeric, alphabetic, authoryear,
+%%          authortitle, etc.)
+%% - bibstyle: Style of the bibliography (same as above)
+%% - citestyle: Style of the citation  (same as above)
+%% - sorting: Sort by (n)ame, (t)itle, (y)ear, (a)lphabetic
+
+\usepackage[backend=biber,natbib=true,style=authoryear-comp,bibstyle=authortitle,hyperref=true,sorting=anyt]{biblatex}
 \addbibresource{monty-hall.bib}
 
 %% end of preamble
